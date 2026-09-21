@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "racasclasses:block/example_block" }
+  }
+}

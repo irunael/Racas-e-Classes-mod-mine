@@ -1,0 +1,20 @@
+{
+  "itemGroup.racasclasses": "Raças e Classes",
+  "block.racasclasses.example_block": "Bloco de exemplo",
+  "item.racasclasses.example_item": "Item de exemplo",
+
+  "key.categories.racasclasses": "Raças e Classes",
+  "key.racasclasses.super_jump": "Super pulo",
+  "key.racasclasses.heal": "Habilidade racial",
+  "key.racasclasses.class_primary": "Ilusionista: cópias ilusórias",
+  "key.racasclasses.class_secondary": "Ilusionista: adagas espectrais",
+  "item.racasclasses.spectral_dagger": "Adaga espectral",
+
+  "racasclasses.configuration.title": "Configurações de Raças e Classes",
+  "racasclasses.configuration.section.racasclasses.common.toml": "Raças e Classes",
+  "racasclasses.configuration.section.racasclasses.common.toml.title": "Raças e Classes",
+  "racasclasses.configuration.items": "Lista de itens",
+  "racasclasses.configuration.logDirtBlock": "Registrar bloco de terra",
+  "racasclasses.configuration.magicNumberIntroduction": "Texto do número mágico",
+  "racasclasses.configuration.magicNumber": "Número mágico"
+}

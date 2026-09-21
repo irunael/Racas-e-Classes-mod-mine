@@ -1,0 +1,20 @@
+{
+  "itemGroup.racasclasses": "Example Mod Tab",
+  "block.racasclasses.example_block": "Example Block",
+  "item.racasclasses.example_item": "Example Item",
+
+  "key.categories.racasclasses": "Races and Classes",
+  "key.racasclasses.super_jump": "Super jump",
+  "key.racasclasses.heal": "Race ability",
+  "key.racasclasses.class_primary": "Illusionist: illusion clones",
+  "key.racasclasses.class_secondary": "Illusionist: spectral daggers",
+  "item.racasclasses.spectral_dagger": "Spectral Dagger",
+
+  "racasclasses.configuration.title": "Racas Classes Configs",
+  "racasclasses.configuration.section.racasclasses.common.toml": "Racas Classes Configs",
+  "racasclasses.configuration.section.racasclasses.common.toml.title": "Racas Classes Configs",
+  "racasclasses.configuration.items": "Item List",
+  "racasclasses.configuration.logDirtBlock": "Log Dirt Block",
+  "racasclasses.configuration.magicNumberIntroduction": "Magic Number Text",
+  "racasclasses.configuration.magicNumber": "Magic Number"
+}
