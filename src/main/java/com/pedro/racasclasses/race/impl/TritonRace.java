@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -74,8 +75,12 @@ public class TritonRace implements Race {
 
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        // Resistência a freeze (50%)
         if (event.getSource().is(DamageTypes.FREEZE)) {
             event.setAmount(event.getAmount() * 0.5f);
         }
+
+        // Fraqueza: +50% dano de fogo
+        RacialWeakness.applyFire(event, 1.5f);
     }
 }

@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -33,12 +34,17 @@ public class VerdanRace implements Race {
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
         var source = event.getSource();
 
-        // Resistência mágica
+        // Resistência mágica (-20%)
         if (source.is(DamageTypes.MAGIC)
                 || source.is(DamageTypes.INDIRECT_MAGIC)
                 || source.is(DamageTypes.WITHER)) {
             event.setAmount(event.getAmount() * 0.8f);
         }
+
+        // Fraqueza: +30% dano de magia (override da resistência)
+        // Isso cria uma interação onde a fraqueza aumenta o dano, mas a resistência reduz
+        // O resultado líquido é: dano * 0.8 * 1.3 = dano * 1.04 (4% de aumento)
+        RacialWeakness.applyMagic(event, 1.3f);
 
         // Black Blood Healing: ao tomar dano, cura 1 ❤️
         long currentTick = player.serverLevel().getServer().getTickCount();

@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -41,9 +42,13 @@ public class YuanTiRace implements Race {
     @Override public double getPoisonResistance() { return 1.0; }
 
     @Override public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        // Resistência mágica (-30%)
         if (event.getSource().is(DamageTypes.MAGIC) || event.getSource().is(DamageTypes.WITHER)
                 || event.getSource().is(DamageTypes.INDIRECT_MAGIC) || event.getSource().is(DamageTypes.DRAGON_BREATH))
             event.setAmount(event.getAmount() * .7f);
+
+        // Fraqueza: +30% dano de mobs mortos-vivos
+        RacialWeakness.applyUndead(event, 1.3f);
     }
     
     @Override public boolean canUseAbility() { return true; }

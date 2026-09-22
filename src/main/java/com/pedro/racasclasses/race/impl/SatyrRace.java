@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -89,7 +90,7 @@ public class SatyrRace implements Race {
         return false;
     }
 
-    // ===== Resistência mágica (-30%) + Imunidade a queda =====
+    // ===== Resistência mágica (-30%) + Fraqueza ferro =====
 
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
@@ -99,6 +100,9 @@ public class SatyrRace implements Race {
                 || event.getSource().is(DamageTypes.WITHER)) {
             event.setAmount(event.getAmount() * 0.7f);
         }
+
+        // Fraqueza: +30% dano de armas de ferro
+        RacialWeakness.applyIronWeapon(event, 1.3f);
     }
 
     // ===== Imunidade a queda (até 5 blocos) =====

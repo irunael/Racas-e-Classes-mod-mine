@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,16 +38,23 @@ public class KalAshtarRace implements Race {
     @Override
     public boolean hasNightVision() { return true; }
 
-    // ===== Passiva: -50% dano mágico =====
+    // ===== Fraqueza: +30% dano físico + Resistência mágica =====
 
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
         DamageSource source = event.getSource();
         String type = source.typeHolder().getRegisteredName();
 
-        if (type.contains("magic") || type.contains("wither") || 
-            type.contains("indirect_magic") || type.contains("dragon_breath")) {
+        // Verifica se é dano mágico
+        boolean isMagic = type.contains("magic") || type.contains("wither") ||
+            type.contains("indirect_magic") || type.contains("dragon_breath");
+
+        if (isMagic) {
+            // Resistência mágica (-50%)
             event.setAmount(event.getAmount() * 0.5f);
+        } else {
+            // Fraqueza: +30% dano físico (só aplica se não for mágico)
+            RacialWeakness.applyPhysical(event, 1.3f);
         }
     }
 

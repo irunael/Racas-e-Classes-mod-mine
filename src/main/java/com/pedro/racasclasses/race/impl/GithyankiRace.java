@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -97,13 +98,13 @@ public class GithyankiRace implements Race {
         player.getPersistentData().putBoolean("githyanki_pearl_active", false);
     }
 
-    // ===== Resistência mágica (-30%) + Imunidade a ender pearl =====
+    // ===== Fraqueza mágica (+30%) + Imunidade a queda após teleporte =====
 
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
         DamageSource source = event.getSource();
 
-        // Imunidade a FALL se a flag tiver ativa
+        // Imunidade a FALL se a flag tiver ativa (após teleporte)
         if (source.is(DamageTypes.FALL)) {
             long currentTick = player.serverLevel().getServer().getTickCount();
             int immuneUntil = player.getPersistentData().getInt("githyanki_immune_until");
@@ -114,15 +115,7 @@ public class GithyankiRace implements Race {
             }
         }
 
-        // Resistência mágica (-30%)
-        boolean isMagic = source.is(DamageTypes.MAGIC)
-                || source.is(DamageTypes.WITHER)
-                || source.is(DamageTypes.INDIRECT_MAGIC)
-                || source.is(DamageTypes.DRAGON_BREATH)
-                || source.getMsgId().equals("magic");
-
-        if (isMagic) {
-            event.setAmount(event.getAmount() * 0.70f);
-        }
+        // Fraqueza: +30% dano mágico
+        RacialWeakness.applyMagic(event, 1.3f);
     }
 }

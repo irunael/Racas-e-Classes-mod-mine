@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -9,6 +10,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +33,7 @@ public class TortleRace implements Race {
     public double getMaxHealth() { return 26.0; }
 
     @Override
-    public double getMovementSpeed() { return 0.09; }
+    public double getMovementSpeed() { return 0.06; }
 
     @Override
     public double getScale() { return 1.10; }
@@ -41,8 +43,12 @@ public class TortleRace implements Race {
     // Uso -60% de dano recebido direto no onPlayerHurt.
 
     @Override
-    public void onPlayerHurt(ServerPlayer player, net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent event) {
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        // Resistência natural (-60%)
         event.setAmount(event.getAmount() * 0.40f);
+
+        // Fraqueza: +30% dano de fogo
+        RacialWeakness.applyFire(event, 1.3f);
     }
 
     // ===== Shell Defense (H) =====

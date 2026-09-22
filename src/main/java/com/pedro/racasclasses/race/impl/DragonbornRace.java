@@ -3,6 +3,7 @@ package com.pedro.racasclasses.race.impl;
 import com.pedro.racasclasses.capability.ModAttachments;
 import com.pedro.racasclasses.capability.PlayerRaceData;
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -17,6 +18,10 @@ public class DragonbornRace implements Race {
 
     @Override
     public String getDisplayName() { return "Draconato"; }
+
+    @Override public int getRacialStrength() { return 2; }
+    @Override public int getRacialLuck() { return 1; }
+    @Override public int getFreeAttributePoints() { return 0; }
 
     @Override
     public double getMaxHealth() { return 22.0; }
@@ -113,8 +118,24 @@ public class DragonbornRace implements Race {
 
         if (immune) {
             event.setAmount(0f);
-        } else if (resist) {
+            return;
+        }
+        if (resist) {
             event.setAmount(event.getAmount() * 0.25f);
+            return;
+        }
+
+        // Elemento oposto: fogo↔poison, gelo↔fogo, raio↔fogo, ácido↔raio
+        boolean isOpposite = switch (element) {
+            case "fire" -> RacialWeakness.isPoisonMagic(player, source);
+            case "ice" -> RacialWeakness.isFire(source);
+            case "poison" -> RacialWeakness.isFreeze(source);
+            case "lightning" -> RacialWeakness.isFire(source);
+            case "acid" -> RacialWeakness.isLightning(source);
+            default -> false;
+        };
+        if (isOpposite) {
+            RacialWeakness.scale(event, 1.5f);
         }
     }
 }

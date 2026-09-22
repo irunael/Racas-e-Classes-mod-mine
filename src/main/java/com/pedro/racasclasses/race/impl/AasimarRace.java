@@ -3,6 +3,7 @@ package com.pedro.racasclasses.race.impl;
 import com.pedro.racasclasses.RacasClasses;
 import com.pedro.racasclasses.race.Race;
 import com.pedro.racasclasses.race.RaceElytra;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -58,9 +59,11 @@ public class AasimarRace implements Race {
             return;
         }
 
-        // --- Resistência: Magia (50%) ---
-        if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.INDIRECT_MAGIC)) {
-            event.setAmount(event.getAmount() * 0.5f);
+        // Fraqueza nova: +30% magia. A redução antiga de 50% em MAGIC
+        // saiu pra essa fraqueza ser sentida; Wither continua reduzido.
+        if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.INDIRECT_MAGIC)
+                || source.is(DamageTypes.DRAGON_BREATH)) {
+            RacialWeakness.scale(event, 1.3f);
             return;
         }
 

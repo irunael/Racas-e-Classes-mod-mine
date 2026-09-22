@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.entity.monster.Vindicator;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 public class KenkuRace implements Race {
 
@@ -100,5 +102,11 @@ public class KenkuRace implements Race {
                 || mob instanceof Vex) {
             event.setCanceled(true);
         }
+    }
+
+    // ===== Fraqueza: +30% dano de projéteis =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyProjectile(event, 1.3f);
     }
 }

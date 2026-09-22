@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,6 +30,10 @@ public class HalfOrcRace implements Race {
     @Override
     public String getDisplayName() { return "Meio-Orc"; }
 
+    @Override public int getRacialStrength() { return 2; }
+    @Override public int getRacialConstitution() { return 1; }
+    @Override public int getFreeAttributePoints() { return 0; }
+
     @Override
     public double getMaxHealth() { return 24.0; }
 
@@ -40,6 +45,11 @@ public class HalfOrcRace implements Race {
 
     @Override
     public boolean hasNightVision() { return true; }
+
+    @Override
+    public void onPlayerHurt(ServerPlayer player, net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent event) {
+        RacialWeakness.applyMagic(event, 1.3f);
+    }
 
     // ===== Savage Attacks (+20% em críticos) =====
 

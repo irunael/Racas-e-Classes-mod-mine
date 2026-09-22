@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.HashMap;
@@ -116,5 +118,11 @@ public class FirbolgRace implements Race {
         player.sendSystemMessage(Component.literal("§aAnimal domado!"));
 
         event.setCanceled(true);
+    }
+
+    // ===== Fraqueza: +50% dano de fogo =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyFire(event, 1.5f);
     }
 }

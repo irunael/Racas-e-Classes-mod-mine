@@ -182,17 +182,22 @@ public class ServerPayloadHandler {
             }
 
             data.setRaceId(race.getId());
-            if (race.hasSubrace()) {
-                race.onSubraceChosen(player, validatedSubrace);
+            if (isNewRace) {
+                race.applyInitialAttributes(player);
+                if (race.hasSubrace()) {
+                    race.onSubraceChosen(player, validatedSubrace);
+                }
             }
 
             classData.setClassId(payload.classId());
             classData.setSubclassId(payload.subclassId());
 
             com.pedro.racasclasses.event.RaceEventHandler.applyRaceAttributes(player);
+            AttributeBonus.applyVanillaModifiers(player);
             if (isNewRace) race.onRaceEnter(player);
             player.syncData(ModAttachments.PLAYER_RACE);
             player.syncData(ModAttachments.PLAYER_CLASS);
+            player.syncData(ModAttachments.PLAYER_ATTRIBUTES);
 
             String message = "§aRaça escolhida: §f" + race.getDisplayName();
             if (race.hasSubrace()) {

@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -42,16 +43,20 @@ public class RebornRace implements Race {
         }
     }
 
-    // ===== Passiva: 50% resistência a poison =====
+    // ===== Passiva: 50% resistência a poison + Fraqueza fogo =====
 
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
         DamageSource source = event.getSource();
         String type = source.typeHolder().getRegisteredName();
 
+        // Resistência a poison
         if (type.contains("poison")) {
             event.setAmount(event.getAmount() * 0.5f);
         }
+
+        // Fraqueza: +50% dano de fogo
+        RacialWeakness.applyFire(event, 1.5f);
     }
 
     // ===== Passiva: +10% XP =====

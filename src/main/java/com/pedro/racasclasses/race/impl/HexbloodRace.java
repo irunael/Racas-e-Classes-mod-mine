@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,16 +38,17 @@ public class HexbloodRace implements Race {
     @Override
     public boolean hasNightVision() { return true; }
 
-    // ===== Passiva: -20% dano mágico =====
+    // ===== Fraqueza: +30% dano sagrado (MAGIC) + Resistência mágica =====
 
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
         DamageSource source = event.getSource();
         String type = source.typeHolder().getRegisteredName();
 
-        if (type.contains("magic") || type.contains("wither") || 
+        // Fraqueza: +30% dano sagrado (MAGIC)
+        if (type.contains("magic") || type.contains("wither") ||
             type.contains("indirect_magic") || type.contains("dragon_breath")) {
-            event.setAmount(event.getAmount() * 0.8f);
+            event.setAmount(event.getAmount() * 1.3f);
         }
 
         // Passiva: atacante corpo a corpo recebe nausea

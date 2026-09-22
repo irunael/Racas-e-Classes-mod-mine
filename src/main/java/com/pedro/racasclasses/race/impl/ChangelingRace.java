@@ -2,6 +2,7 @@ package com.pedro.racasclasses.race.impl;
 
 import com.mojang.authlib.GameProfile;
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 public class ChangelingRace implements Race {
 
@@ -147,6 +149,12 @@ public class ChangelingRace implements Race {
         player.setCustomName(null);
         player.getPersistentData().remove(DISGUISED_UNTIL);
         player.getPersistentData().remove(DISGUISED_AS);
+    }
+
+    // ===== Fraqueza: +30% dano de magia =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyMagic(event, 1.3f);
     }
 }
 

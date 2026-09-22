@@ -3,6 +3,7 @@ package com.pedro.racasclasses.race.impl;
 import com.pedro.racasclasses.RacasClasses;
 import com.pedro.racasclasses.race.Race;
 import com.pedro.racasclasses.race.RaceElytra;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -30,6 +31,11 @@ public class AarakocraRace implements Race {
     public void onAttackEntity(ServerPlayer player, LivingIncomingDamageEvent event) {
         if (!player.getMainHandItem().isEmpty()) return;
         event.setAmount(event.getAmount() + 3.0f);
+    }
+
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyFall(event, 1.5f);
     }
 
     // ===== Entrada na raça: equipa elytra =====

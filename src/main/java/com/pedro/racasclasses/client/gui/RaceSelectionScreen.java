@@ -228,8 +228,8 @@ public class RaceSelectionScreen extends Screen {
         return switch (step) {
             case RACE -> new String[] {"Resumo", "Atributos", "Habilidades"};
             case SUBRACE -> selectedSubrace().powers().isEmpty()
-                    ? new String[] {"Resumo", "Atributos"}
-                    : new String[] {"Resumo", "Atributos", "Poderes"};
+                    ? new String[] {"Resumo", "Atributos", "Fraquezas"}
+                    : new String[] {"Resumo", "Atributos", "Poderes", "Fraquezas"};
             case CLASS -> new String[] {"Resumo", "Características", "Arquétipos"};
             case SUBCLASS -> new String[] {"Resumo", "Poderes"};
         };
@@ -272,8 +272,13 @@ public class RaceSelectionScreen extends Screen {
                 cursor = listSection(graphics, "Buffs", option.buffs(), x, cursor + 7, width, MOSS) + 8;
             if (!option.debuffs().isEmpty())
                 cursor = listSection(graphics, "Debuffs", option.debuffs(), x, cursor + 7, width, DANGER);
-        } else {
+        } else if (detailTab == 2 && !option.powers().isEmpty()) {
             cursor = listSection(graphics, "Poderes", option.powers(), x, cursor, width, ARCANE);
+        } else {
+            if (!option.debuffs().isEmpty())
+                cursor = listSection(graphics, "Fraquezas", option.debuffs(), x, cursor, width, DANGER);
+            else
+                cursor = paragraph(graphics, "Esta linhagem não possui fraquezas específicas além das herdadas da raça base.", x, cursor, width, PARCHMENT_MUTED);
         }
         return cursor - start + 8;
     }

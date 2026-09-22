@@ -2,6 +2,7 @@ package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.RacasClasses;
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -103,6 +105,12 @@ public class WukongRace implements Race {
                 player.hurt(level.damageSources().drown(), 1.0f);
             }
         }
+    }
+
+    // ===== Fraqueza: +30% dano de raio =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyLightning(event, 1.3f);
     }
 
     // ===== Pulo Duplo =====

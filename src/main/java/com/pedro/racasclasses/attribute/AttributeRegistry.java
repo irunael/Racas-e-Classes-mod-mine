@@ -8,8 +8,8 @@ import com.pedro.racasclasses.RacasClasses;
  */
 public final class AttributeRegistry {
     public static final int MAX_STAT_LEVEL = 50;
-    /** 6 trilhas × 50 = teto de pontos úteis; o nível de personagem para aqui. */
-    public static final int MAX_CHARACTER_LEVEL = MAX_STAT_LEVEL * Attribute.values().length;
+    /** Teto de nível de personagem: ao chegar aqui, para de ganhar XP e pontos. */
+    public static final int MAX_CHARACTER_LEVEL = 120;
 
     public static final int XP_KILL = 10;
     public static final int XP_ORE = 5;

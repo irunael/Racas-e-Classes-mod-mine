@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.monster.Monster;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 public class SirenRace implements Race {
 
@@ -68,5 +70,11 @@ public class SirenRace implements Race {
                 SoundEvents.NOTE_BLOCK_HARP, SoundSource.PLAYERS, 1.0f, 1.0f);
         ABILITY_COOLDOWNS.put(player.getUUID(), currentTick + 600);
         player.sendSystemMessage(Component.literal("§aCharming Song!"));
+    }
+
+    // ===== Fraqueza: +50% dano de fogo =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyFire(event, 1.5f);
     }
 }

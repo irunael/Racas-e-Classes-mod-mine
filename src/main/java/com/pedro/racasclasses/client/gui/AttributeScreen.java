@@ -168,12 +168,19 @@ public class AttributeScreen extends Screen {
         AttributeData data = currentData();
         int needed = AttributeRegistry.xpToNextLevel(data.getCharacterLevel());
 
-        graphics.drawString(font, "Nível de personagem: " + data.getCharacterLevel(),
+        graphics.drawString(font, "Nível de personagem: " + data.getCharacterLevel()
+                        + " / " + AttributeRegistry.MAX_CHARACTER_LEVEL,
                 x + 16, y + 36, INK, false);
         graphics.drawString(font, "Pontos disponíveis: " + data.getAvailablePoints(),
                 x + 16, y + 48, data.getAvailablePoints() > 0 ? MOSS : MUTED, false);
-        graphics.drawString(font, "XP: " + data.getCharacterXp() + " / " + needed,
-                x + 16, y + 60, MUTED, false);
+        boolean atCap = data.getCharacterLevel() >= AttributeRegistry.MAX_CHARACTER_LEVEL;
+        if (atCap) {
+            graphics.drawString(font, "XP: cap atingido (nível 120)",
+                    x + 16, y + 60, MUTED, false);
+        } else {
+            graphics.drawString(font, "XP: " + data.getCharacterXp() + " / " + needed,
+                    x + 16, y + 60, MUTED, false);
+        }
 
         int barW = 168;
         int barX = x + 16;

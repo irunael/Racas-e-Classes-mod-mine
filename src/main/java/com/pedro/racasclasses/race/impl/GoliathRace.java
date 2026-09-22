@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -120,5 +121,11 @@ public class GoliathRace implements Race {
             // Reduz a distância em 5 blocos
             event.setDistance(distance - 5.0f);
         }
+    }
+
+    // ===== Fraqueza: +30% dano de explosão =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyExplosion(event, 1.3f);
     }
 }

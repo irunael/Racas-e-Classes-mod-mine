@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -13,6 +14,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -156,5 +158,11 @@ public class FungrilRace implements Race {
             30, 4.0, 3.0, 4.0, 0.1);
 
         ABILITY_COOLDOWNS.put(player.getUUID(), currentTick + COOLDOWN_TICKS);
+    }
+
+    // ===== Fraqueza: +50% dano de fogo =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyFire(event, 1.5f);
     }
 }

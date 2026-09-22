@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -123,6 +124,10 @@ public class GenasiRace implements Race {
                     player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 400, 0, false, false));
                 }
                 break;
+            case "fogo":
+                // Fraqueza: dano na água E na chuva
+                RacialWeakness.waterOrRainDamage(player, 1.0f);
+                break;
             case "agua":
                 // Respira na água
                 if (!player.hasEffect(MobEffects.WATER_BREATHING)) {
@@ -139,16 +144,33 @@ public class GenasiRace implements Race {
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
         String subrace = getSubrace(player);
-        if (!"fogo".equals(subrace)) return;
+        if (subrace == null) return;
 
-        // Genasi Fogo: Imune a fogo
-        DamageSource source = event.getSource();
-        String type = source.typeHolder().getRegisteredName();
+        // Fraquezas por sub-raça
+        switch (subrace) {
+            case "ar":
+                // Fraqueza: +30% dano de explosão
+                RacialWeakness.applyExplosion(event, 1.3f);
+                break;
+            case "fogo":
+                // Genasi Fogo: Imune a fogo
+                DamageSource source = event.getSource();
+                String type = source.typeHolder().getRegisteredName();
 
-        if (type.contains("in_fire") || type.contains("on_fire") || 
-            type.contains("lava") || type.contains("hot_floor")) {
-            event.setCanceled(true);
-            player.clearFire();
+                if (type.contains("in_fire") || type.contains("on_fire") ||
+                    type.contains("lava") || type.contains("hot_floor")) {
+                    event.setCanceled(true);
+                    player.clearFire();
+                }
+                break;
+            case "terra":
+                // Fraqueza: +30% dano de explosão
+                RacialWeakness.applyExplosion(event, 1.3f);
+                break;
+            case "agua":
+                // Fraqueza: +50% dano de fogo
+                RacialWeakness.applyFire(event, 1.5f);
+                break;
         }
     }
 

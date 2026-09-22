@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -19,6 +20,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.HashMap;
@@ -46,20 +48,23 @@ public class DriderRace implements Race {
     @Override
     public boolean hasNightVision() { return true; }
 
-    // ===== Passiva: Escalada (igual Hadozee) =====
+    // ===== Passiva: Escalada (igual Hadozee) + Fome mais lenta =====
 
     @Override
     public void onPlayerTick(ServerPlayer player) {
+        // Fome 20% mais lenta
+        RacialWeakness.slowerHunger(player);
+
         // Escalada melhorada: SHIFT + olhando para bloco sólido
         if(player.isShiftKeyDown() && !player.onGround()) {
             // Pega direção que o player está olhando
             Vec3 lookVec = player.getLookAngle();
             net.minecraft.core.Direction lookDir = net.minecraft.core.Direction.getNearest(lookVec.x, 0, lookVec.z);
-            
+
             // Checa bloco na frente (1 bloco de distância)
             net.minecraft.core.BlockPos frontPos = player.blockPosition().relative(lookDir);
             net.minecraft.world.level.block.state.BlockState frontBlock = player.level().getBlockState(frontPos);
-            
+
             // Se tiver bloco sólido na frente E olhando para ele
             if (!frontBlock.isAir() && frontBlock.isSolid()) {
                 // Verifica se está realmente olhando para frente (ângulo < 60°)
@@ -212,5 +217,11 @@ public class DriderRace implements Race {
         }
 
         return null;
+    }
+
+    // ===== Fraqueza: +50% dano de fogo =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyFire(event, 1.5f);
     }
 }

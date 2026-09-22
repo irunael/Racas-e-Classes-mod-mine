@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -84,6 +85,12 @@ public class NagaRace implements Race {
         if (event.getEntity() instanceof LivingEntity target) {
             target.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0)); // 3s, Poison I
         }
+    }
+
+    // ===== Fraqueza: +30% dano de mobs mortos-vivos =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyUndead(event, 1.3f);
     }
 
     // ===== Habilidade H: Constrict =====

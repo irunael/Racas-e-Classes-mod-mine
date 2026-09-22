@@ -78,7 +78,9 @@ public final class AttributeMenu {
     public static List<String> explanationLines() {
         return List.of(
                 "Cada trilha vai de 0 a 50. 1 ponto = 1 nível.",
-                "Os bônus SOMAM com os da raça (ex.: Anão + CON).",
+                "Personagem sobe até o nível 120; depois disso não ganha mais pontos.",
+                "Os bônus raciais já entram como níveis (ex.: Anão CON 2).",
+                "Raças sem ASI de PHB ganham 3 pontos livres nesta HUD.",
                 "",
                 "STR  dano melee + knockback a cada 5",
                 "DEX  dano ranged, velocidade, esquiva a cada 5",
@@ -89,7 +91,7 @@ public final class AttributeMenu {
                 "",
                 "Como ganhar XP desta barra (não é a barra verde):",
                 "Mob +10   Minério +5   Villager +3   Pesca +2   Craft +1",
-                "Próximo nível: nível atual x 100 XP  (nv.1 = 100, nv.3 = 300).",
+                "Próximo nível: nível atual x 100 XP  (nv.1 = 100, nv.50 = 5000, nv.120 = 12000).",
                 "",
                 "Exemplo: 3 pontos em CON = +0.75 coração de HP máximo.",
                 "Passe o mouse no nome da trilha (página 1) para o detalhe."

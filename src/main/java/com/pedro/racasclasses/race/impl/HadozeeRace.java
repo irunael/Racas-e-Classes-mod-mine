@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 import com.pedro.racasclasses.race.Race;
 import com.pedro.racasclasses.race.RaceElytra;
+import com.pedro.racasclasses.race.RacialWeakness;
 import java.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 public class HadozeeRace implements Race {
     private static final Map<UUID,Long> ABILITY_COOLDOWNS=new HashMap<>();
@@ -80,5 +82,11 @@ public class HadozeeRace implements Race {
         p.startFallFlying();
         ABILITY_COOLDOWNS.put(p.getUUID(),t+1200);
         p.sendSystemMessage(Component.literal("§aGlide ativado!"));
+    }
+
+    // ===== Fraqueza: +30% dano perfurante =====
+    @Override
+    public void onPlayerHurt(ServerPlayer p, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyPiercing(event, 1.3f);
     }
 }

@@ -4,6 +4,7 @@ import com.pedro.racasclasses.RacasClasses;
 import com.pedro.racasclasses.capability.ModAttachments;
 import com.pedro.racasclasses.capability.PlayerRaceData;
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -22,6 +23,10 @@ public class TieflingRace implements Race {
 
     @Override
     public String getDisplayName() { return "Tiefling"; }
+
+    @Override public int getRacialIntelligence() { return 1; }
+    @Override public int getRacialLuck() { return 2; }
+    @Override public int getFreeAttributePoints() { return 0; }
 
     @Override
     public boolean hasNightVision() { return true; }
@@ -103,6 +108,9 @@ public class TieflingRace implements Race {
                 event.setAmount(event.getAmount() * (1.0f - ZARIEL_PHYSICAL_RESISTANCE));
             }
         }
+
+        // Fraqueza: dano sagrado mapeado pra MAGIC (+30%)
+        RacialWeakness.applyMagic(event, 1.3f);
     }
 
     // ===== Ataque mão vazia (efeito na sub-raça) =====

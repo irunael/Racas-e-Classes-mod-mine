@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -116,5 +117,11 @@ public class LoxodonRace implements Race {
         }
 
         ABILITY_COOLDOWNS.put(player.getUUID(), currentTick + COOLDOWN_TICKS);
+    }
+
+    // ===== Fraqueza: +30% dano de explosão =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyExplosion(event, 1.3f);
     }
 }

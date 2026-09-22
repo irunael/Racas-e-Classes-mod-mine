@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -69,5 +70,11 @@ public class HobgoblinRace implements Race {
 
         ABILITY_COOLDOWNS.put(player.getUUID(), currentTick + ABILITY_COOLDOWN_TICKS);
         player.sendSystemMessage(Component.literal("§aSaving Face ativado!"));
+    }
+
+    // ===== Fraqueza: +30% dano de magia =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyMagic(event, 1.3f);
     }
 }

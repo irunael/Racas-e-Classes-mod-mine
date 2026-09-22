@@ -102,12 +102,46 @@ public class AttributeData {
         this.luckLevel = other.luckLevel;
     }
 
+    public void setStrength(int value) { this.strengthLevel = clampStat(value); }
+    public void setDexterity(int value) { this.dexterityLevel = clampStat(value); }
+    public void setConstitution(int value) { this.constitutionLevel = clampStat(value); }
+    public void setIntelligence(int value) { this.intelligenceLevel = clampStat(value); }
+    public void setWisdom(int value) { this.wisdomLevel = clampStat(value); }
+    public void setLuck(int value) { this.luckLevel = clampStat(value); }
+    public void setAvailablePoints(int value) { this.availablePoints = Math.max(0, value); }
+
+    public void addStrength(int amount) { this.strengthLevel = clampStat(this.strengthLevel + amount); }
+    public void addDexterity(int amount) { this.dexterityLevel = clampStat(this.dexterityLevel + amount); }
+    public void addConstitution(int amount) { this.constitutionLevel = clampStat(this.constitutionLevel + amount); }
+    public void addIntelligence(int amount) { this.intelligenceLevel = clampStat(this.intelligenceLevel + amount); }
+    public void addWisdom(int amount) { this.wisdomLevel = clampStat(this.wisdomLevel + amount); }
+    public void addLuck(int amount) { this.luckLevel = clampStat(this.luckLevel + amount); }
+    public void addAvailablePoints(int amount) {
+        this.availablePoints = Math.max(0, this.availablePoints + amount);
+    }
+
+    /** Zera as 6 trilhas e os pontos livres. Nível de personagem e XP ficam intactos. */
+    public void resetAllocatedAttributes() {
+        this.strengthLevel = 0;
+        this.dexterityLevel = 0;
+        this.constitutionLevel = 0;
+        this.intelligenceLevel = 0;
+        this.wisdomLevel = 0;
+        this.luckLevel = 0;
+        this.availablePoints = 0;
+    }
+
     /**
      * Soma XP da barra própria e sobe de nível (1 ponto por nível).
+     * No cap (120) não acumula mais XP nem pontos.
      * @return quantos níveis foram ganhos nesta somatória
      */
     public int addXp(int amount) {
         if (amount <= 0) return 0;
+        if (characterLevel >= AttributeRegistry.MAX_CHARACTER_LEVEL) {
+            characterXp = 0;
+            return 0;
+        }
         characterXp += amount;
         int gained = 0;
         while (characterLevel < AttributeRegistry.MAX_CHARACTER_LEVEL) {

@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -113,6 +114,10 @@ public class MinotaurRace implements Race {
 
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        // Resistência geral (-15%)
         event.setAmount(event.getAmount() * 0.85f);
+
+        // Fraqueza: +30% dano perfurante
+        RacialWeakness.applyPiercing(event, 1.3f);
     }
 }

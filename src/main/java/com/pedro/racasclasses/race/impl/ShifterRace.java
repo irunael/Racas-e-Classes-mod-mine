@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -335,5 +336,11 @@ public class ShifterRace implements Race {
         double dot = look.dot(toTarget);
         double distance = player.distanceTo(target);
         return distance <= range && dot >= Math.cos(Math.toRadians(angle));
+    }
+
+    // ===== Fraqueza: +30% dano de armas de ferro =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyIronWeapon(event, 1.3f);
     }
 }

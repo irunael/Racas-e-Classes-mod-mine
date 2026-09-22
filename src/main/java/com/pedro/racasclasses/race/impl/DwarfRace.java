@@ -2,6 +2,7 @@ package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.RacasClasses;
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
@@ -21,6 +22,11 @@ public class DwarfRace implements Race {
     @Override
     public String getDisplayName() { return "Anão"; }
 
+    // PHB: +2 CON. Anão da Colina (+1 WIS) não é sub-raça jogável neste mod,
+    // então só o ASI base entra. Se hill for adicionado, somar em onSubraceChosen.
+    @Override public int getRacialConstitution() { return 2; }
+    @Override public int getFreeAttributePoints() { return 0; }
+
     @Override
     public double getMaxHealth() { return 24.0; }
 
@@ -38,6 +44,18 @@ public class DwarfRace implements Race {
 
     @Override
     public double getScale() { return 0.60; }
+
+    @Override
+    public double getSwimSpeedBonus() { return 0.0; }
+
+    // Anão não consegue nadar - desabilita nado quando na água
+    @Override
+    public void onPlayerTick(ServerPlayer player) {
+        if (player.isInWater() || player.isUnderWater()) {
+            // Desabilita nado definindo velocidade de nado para 0
+            player.setSwimming(false);
+        }
+    }
 
     // ===== Minério esquentado (3% de chance) =====
 

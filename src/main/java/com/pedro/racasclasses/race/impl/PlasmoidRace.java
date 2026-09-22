@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -54,6 +55,9 @@ public class PlasmoidRace implements Race {
         if (type.contains("poison")) {
             event.setCanceled(true);
         }
+
+        // Fraqueza: +50% dano de gelo
+        RacialWeakness.applyFreeze(event, 1.5f);
     }
 
     // ===== Habilidade H: Amorphous =====

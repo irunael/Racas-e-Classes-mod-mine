@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -22,6 +23,10 @@ public class HalfElfRace implements Race {
     @Override
     public String getDisplayName() { return "Meio-Elfo"; }
 
+    // Sem sub-raça no mod: +2 LUCK (CHA) e 2 pontos livres na HUD.
+    @Override public int getRacialLuck() { return 2; }
+    @Override public int getFreeAttributePoints() { return 2; }
+
     @Override
     public double getMaxHealth() { return 22.0; }
 
@@ -36,6 +41,8 @@ public class HalfElfRace implements Race {
     @Override
     public void onPlayerTick(ServerPlayer player) {
         if (player.tickCount % 20 != 0) return;
+
+        RacialWeakness.fasterHunger(player, 0.15f);
 
         if (hasNearbyLeaves(player.serverLevel(), player.blockPosition())) {
             player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 40, 0, false, false, false));

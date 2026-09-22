@@ -3,6 +3,8 @@ package com.pedro.racasclasses.event;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.pedro.racasclasses.RacasClasses;
+import com.pedro.racasclasses.attribute.AttributeBonus;
+import com.pedro.racasclasses.attribute.AttributeData;
 import com.pedro.racasclasses.capability.ModAttachments;
 import com.pedro.racasclasses.capability.PlayerRaceData;
 import com.pedro.racasclasses.race.Race;
@@ -110,6 +112,9 @@ public class RaceCommand {
 
         data.setRaceId(race.getId());
 
+        // ASI racial primeiro; sub-raça soma em onSubraceChosen.
+        race.applyInitialAttributes(player);
+
         // Sub-raça
         if (race.hasSubrace()) {
             String subraceId;
@@ -126,16 +131,24 @@ public class RaceCommand {
         }
 
         RaceEventHandler.applyRaceAttributes(player);
+        AttributeBonus.applyVanillaModifiers(player);
 
         // Chama onRaceEnter da nova raça
         race.onRaceEnter(player);
         player.syncData(ModAttachments.PLAYER_RACE);
+        player.syncData(ModAttachments.PLAYER_ATTRIBUTES);
 
         source.sendSuccess(() -> Component.literal("§aVocê agora é um §f" + race.getDisplayName() + "§a!"), false);
         if (race.hasSubrace()) {
             String sub = race.getSubraceDisplayName(player);
             source.sendSuccess(() -> Component.literal("§7Sub-raça: §f" + sub), false);
         }
+        AttributeData chosen = player.getData(ModAttachments.PLAYER_ATTRIBUTES);
+        source.sendSuccess(() -> Component.literal(String.format(
+                "§7Início: §fSTR %d DEX %d CON %d INT %d WIS %d LUCK %d §7| pontos livres: §f%d",
+                chosen.getStrengthLevel(), chosen.getDexterityLevel(), chosen.getConstitutionLevel(),
+                chosen.getIntelligenceLevel(), chosen.getWisdomLevel(), chosen.getLuckLevel(),
+                chosen.getAvailablePoints())), false);
 
         return 1;
     }
@@ -162,6 +175,13 @@ public class RaceCommand {
             String sub = race.getSubraceDisplayName(player);
             source.sendSuccess(() -> Component.literal("§7Sub-raça: §f" + sub), false);
         }
+
+        AttributeData attrs = player.getData(ModAttachments.PLAYER_ATTRIBUTES);
+        source.sendSuccess(() -> Component.literal(String.format(
+                "§7Atributos: §fSTR %d §7/ §fDEX %d §7/ §fCON %d §7/ §fINT %d §7/ §fWIS %d §7/ §fLUCK %d §7| livres: §f%d",
+                attrs.getStrengthLevel(), attrs.getDexterityLevel(), attrs.getConstitutionLevel(),
+                attrs.getIntelligenceLevel(), attrs.getWisdomLevel(), attrs.getLuckLevel(),
+                attrs.getAvailablePoints())), false);
 
         return 1;
     }
@@ -190,10 +210,18 @@ public class RaceCommand {
         data.setHalflingSubrace("lightfoot");
         data.setTieflingSubrace("asmodeus");
 
-        RaceEventHandler.applyRaceAttributes(player);
-        player.syncData(ModAttachments.PLAYER_RACE);
+        // Zera trilhas e pontos livres. Nível de personagem e XP ficam
+        // (o player não perde progresso de cap); na próxima escolha os
+        // pontos de level-up voltam pela fórmula nível−1.
+        AttributeData attrs = player.getData(ModAttachments.PLAYER_ATTRIBUTES);
+        attrs.resetAllocatedAttributes();
 
-        source.sendSuccess(() -> Component.literal("§aRaça resetada."), false);
+        RaceEventHandler.applyRaceAttributes(player);
+        AttributeBonus.applyVanillaModifiers(player);
+        player.syncData(ModAttachments.PLAYER_RACE);
+        player.syncData(ModAttachments.PLAYER_ATTRIBUTES);
+
+        source.sendSuccess(() -> Component.literal("§aRaça resetada. Atributos raciais zerados."), false);
         return 1;
     }
 

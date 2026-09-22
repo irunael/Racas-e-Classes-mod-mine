@@ -3,6 +3,7 @@ package com.pedro.racasclasses.race.impl;
 import com.pedro.racasclasses.capability.ModAttachments;
 import com.pedro.racasclasses.capability.PlayerRaceData;
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.server.level.ServerPlayer;
 
@@ -13,6 +14,9 @@ public class GnomeRace implements Race {
 
     @Override
     public String getDisplayName() { return "Gnomo"; }
+
+    @Override public int getRacialIntelligence() { return 2; }
+    @Override public int getFreeAttributePoints() { return 0; }
 
     @Override
     public double getMovementSpeed() { return 0.09; }
@@ -37,6 +41,12 @@ public class GnomeRace implements Race {
     public void onSubraceChosen(ServerPlayer player, String subraceId) {
         PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
         data.setGnomeSubrace(subraceId);
+
+        var attr = player.getData(ModAttachments.PLAYER_ATTRIBUTES);
+        switch (subraceId) {
+            case "forest" -> attr.addDexterity(1);
+            case "rock" -> attr.addConstitution(1);
+        }
     }
 
     @Override
@@ -48,6 +58,16 @@ public class GnomeRace implements Race {
             case "rock" -> "Gnomo da Rocha";
             default -> id;
         };
+    }
+
+    @Override
+    public void onPlayerHurt(ServerPlayer player, net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent event) {
+        PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
+        if (data.getGnomeSubrace().equals("forest")) {
+            RacialWeakness.applyFire(event, 1.5f);
+        } else if (data.getGnomeSubrace().equals("rock")) {
+            RacialWeakness.applyExplosion(event, 1.3f);
+        }
     }
 
     /** Imunidade a queda do Rock Gnome (3 blocos) */

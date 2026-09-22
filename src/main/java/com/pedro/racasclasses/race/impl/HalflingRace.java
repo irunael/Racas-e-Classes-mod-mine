@@ -4,6 +4,7 @@ import com.pedro.racasclasses.RacasClasses;
 import com.pedro.racasclasses.capability.ModAttachments;
 import com.pedro.racasclasses.capability.PlayerRaceData;
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -26,6 +27,9 @@ public class HalflingRace implements Race {
     @Override
     public String getDisplayName() { return "Halfling"; }
 
+    @Override public int getRacialDexterity() { return 2; }
+    @Override public int getFreeAttributePoints() { return 0; }
+
     @Override
     public double getMovementSpeed() { return 0.09; }
 
@@ -42,6 +46,12 @@ public class HalflingRace implements Race {
     public void onSubraceChosen(ServerPlayer player, String subraceId) {
         PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
         data.setHalflingSubrace(subraceId);
+
+        var attr = player.getData(ModAttachments.PLAYER_ATTRIBUTES);
+        switch (subraceId) {
+            case "lightfoot" -> attr.addLuck(1);
+            case "stout" -> attr.addConstitution(1);
+        }
     }
 
     @Override
@@ -76,9 +86,8 @@ public class HalflingRace implements Race {
         player.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
 
         PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
-
-        // Lightfoot: invisibilidade ao agachar
         if (data.getHalflingSubrace().equals("lightfoot")) {
+            RacialWeakness.fasterHunger(player, 0.25f);
             if (player.isShiftKeyDown()) {
                 player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 40, 0, false, false, false));
             }
@@ -156,5 +165,8 @@ public class HalflingRace implements Race {
             event.setAmount(novoDano);
             RacasClasses.LOGGER.info("[HALFLING-STOUT] amount depois={}", novoDano);
         }
+
+        // Stout: +25% dano de veneno (MAGIC com Poison ativo)
+        RacialWeakness.applyPoisonMagic(player, event, 1.25f);
     }
 }

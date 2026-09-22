@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.race.Race;
+import com.pedro.racasclasses.race.RacialWeakness;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -101,6 +102,12 @@ public class SimicHybridRace implements Race {
         // Grappling: +2 dano desarmado
         if (!player.getMainHandItem().isEmpty()) return;
         event.setAmount(event.getAmount() + 2.0f);
+    }
+
+    // ===== Fraqueza: +30% dano de magia =====
+    @Override
+    public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        RacialWeakness.applyMagic(event, 1.3f);
     }
 
     // ===== Habilidade H: Adaptive Shield =====
