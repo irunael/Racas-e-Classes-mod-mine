@@ -1,6 +1,7 @@
 package com.pedro.racasclasses.capability;
 
 import com.pedro.racasclasses.RacasClasses;
+import com.pedro.racasclasses.attribute.AttributeData;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -23,6 +24,14 @@ public class ModAttachments {
                     () -> AttachmentType.builder(PlayerClassData::new)
                             .serialize(PlayerClassData.CODEC)
                             .sync(PlayerClassData.STREAM_CODEC)
+                            .build());
+
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<AttributeData>> PLAYER_ATTRIBUTES =
+            ATTACHMENT_TYPES.register("player_attributes",
+                    () -> AttachmentType.builder(AttributeData::new)
+                            .serialize(AttributeData.CODEC)
+                            .sync(AttributeData.STREAM_CODEC)
+                            .copyOnDeath()
                             .build());
 
     public static void register(IEventBus bus) {

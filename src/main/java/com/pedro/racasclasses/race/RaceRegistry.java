@@ -49,6 +49,9 @@ import com.pedro.racasclasses.race.impl.KalAshtarRace;
 import com.pedro.racasclasses.race.impl.SimicHybridRace;
 import com.pedro.racasclasses.race.impl.LoxodonRace;
 import com.pedro.racasclasses.race.impl.CentaurRace;
+import com.pedro.racasclasses.race.impl.FungrilRace;
+import com.pedro.racasclasses.race.impl.WukongRace;
+import com.pedro.racasclasses.race.impl.DriderRace;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -108,6 +111,9 @@ public class RaceRegistry {
         register(new SimicHybridRace());
         register(new LoxodonRace());
         register(new CentaurRace());
+        register(new FungrilRace());
+        register(new WukongRace());
+        register(new DriderRace());
     }
 
     public static void register(Race race) {

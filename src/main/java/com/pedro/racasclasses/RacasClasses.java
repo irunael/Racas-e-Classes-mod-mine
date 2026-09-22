@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
+import com.pedro.racasclasses.attribute.AttributeRegistry;
 import com.pedro.racasclasses.capability.ModAttachments;
 import com.pedro.racasclasses.race.RaceRegistry;
 import com.pedro.racasclasses.entity.ModEntities;
@@ -68,6 +69,7 @@ public class RacasClasses {
 
         // Registra todas as raças
         RaceRegistry.init();
+        AttributeRegistry.init();
 
         NeoForge.EVENT_BUS.register(this);
 

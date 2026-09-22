@@ -37,11 +37,19 @@ public class ModKeyMappings {
             GLFW.GLFW_KEY_Z, "key.categories.racasclasses"
     );
 
+    public static final KeyMapping ATTRIBUTES = new KeyMapping(
+            "key.racasclasses.attributes",
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_P,
+            "key.categories.racasclasses"
+    );
+
     @SubscribeEvent
     public static void register(RegisterKeyMappingsEvent event) {
         event.register(SUPER_JUMP);
         event.register(HEAL);
         event.register(CLASS_PRIMARY);
         event.register(CLASS_SECONDARY);
+        event.register(ATTRIBUTES);
     }
 }

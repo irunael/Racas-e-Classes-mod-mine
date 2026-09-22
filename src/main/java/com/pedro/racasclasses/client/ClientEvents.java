@@ -5,8 +5,10 @@ import com.pedro.racasclasses.capability.ModAttachments;
 import com.pedro.racasclasses.client.gui.RaceSelectionScreen;
 import com.pedro.racasclasses.network.AbilityPayload;
 import com.pedro.racasclasses.network.SuperJumpPayload;
+import com.pedro.racasclasses.network.DoubleJumpPayload;
 import com.pedro.racasclasses.network.ClassPrimaryPayload;
 import com.pedro.racasclasses.network.ClassSecondaryPayload;
+import com.pedro.racasclasses.network.OpenAttributeScreenPayload;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -14,7 +16,9 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.lwjgl.glfw.GLFW;
 
 @EventBusSubscriber(modid = RacasClasses.MODID, value = Dist.CLIENT)
 public class ClientEvents {
@@ -54,6 +58,30 @@ public class ClientEvents {
 
         while (ModKeyMappings.CLASS_SECONDARY.consumeClick()) {
             PacketDistributor.sendToServer(new ClassSecondaryPayload());
+        }
+
+        while (ModKeyMappings.ATTRIBUTES.consumeClick()) {
+            if (Minecraft.getInstance().screen instanceof com.pedro.racasclasses.client.gui.AttributeScreen) {
+                Minecraft.getInstance().setScreen(null);
+            } else {
+                PacketDistributor.sendToServer(new OpenAttributeScreenPayload());
+            }
+        }
+    }
+
+    // ===== Listener de INPUT para Wukong Double Jump =====
+
+    @SubscribeEvent
+    public static void onKeyInput(InputEvent.Key event) {
+        // Detecta ESPAÇO pressionado
+        if (event.getKey() == GLFW.GLFW_KEY_SPACE && event.getAction() == GLFW.GLFW_PRESS) {
+            LocalPlayer player = Minecraft.getInstance().player;
+            if (player == null) return;
+
+            // Só envia se não está no chão
+            if (!player.onGround()) {
+                PacketDistributor.sendToServer(new DoubleJumpPayload());
+            }
         }
     }
 }

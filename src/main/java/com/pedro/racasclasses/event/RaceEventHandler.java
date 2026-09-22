@@ -84,10 +84,11 @@ public class RaceEventHandler {
         PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
         Race race = RaceRegistry.get(data.getRaceId());
 
-        // Sem raça? Limpa tudo
+        // Sem raça? Limpa modificadores raciais; CON/DEX da HUD continuam.
         if (race == null) {
             clearAllModifiers(player);
             player.removeEffect(MobEffects.NIGHT_VISION);
+            com.pedro.racasclasses.attribute.AttributeBonus.applyVanillaModifiers(player);
             return;
         }
 
@@ -177,6 +178,9 @@ public class RaceEventHandler {
         } else {
             player.removeEffect(MobEffects.NIGHT_VISION);
         }
+
+        // HP/velocidade/armadura da HUD somam com a raça (modifiers com IDs diferentes).
+        com.pedro.racasclasses.attribute.AttributeBonus.applyVanillaModifiers(player);
     }
 
     private static void clearAllModifiers(ServerPlayer player) {
