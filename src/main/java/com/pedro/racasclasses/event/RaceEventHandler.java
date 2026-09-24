@@ -39,6 +39,8 @@ public class RaceEventHandler {
             ResourceLocation.fromNamespaceAndPath(RacasClasses.MODID, "race_mining_speed");
     private static final ResourceLocation ID_SWIM_SPEED =
             ResourceLocation.fromNamespaceAndPath(RacasClasses.MODID, "race_swim_speed");
+    private static final ResourceLocation ID_JUMP_STRENGTH =
+            ResourceLocation.fromNamespaceAndPath(RacasClasses.MODID, "race_jump_strength");
 
     // ============================================================
     //   ATRIBUTOS / LOGIN / RESPAWN / DIMENSÃO
@@ -93,12 +95,11 @@ public class RaceEventHandler {
         }
 
         // --- MAX HEALTH ---
-        // --- MAX HEALTH ---
         AttributeInstance maxHealth = player.getAttribute(Attributes.MAX_HEALTH);
         if (maxHealth != null) {
             removeModifier(maxHealth, ID_MAX_HEALTH);
             double bonus = race.getMaxHealth() - 20.0;
-            bonus += race.getSubraceHealthBonus(player);   // ← ADICIONA ESSA LINHA
+            bonus += race.getSubraceHealthBonus(player);
             if (bonus != 0) {
                 maxHealth.addPermanentModifier(new AttributeModifier(
                         ID_MAX_HEALTH, bonus, AttributeModifier.Operation.ADD_VALUE));
@@ -169,6 +170,16 @@ public class RaceEventHandler {
             }
         }
 
+        // --- JUMP STRENGTH ---
+        AttributeInstance jumpStrength = player.getAttribute(Attributes.JUMP_STRENGTH);
+        if (jumpStrength != null) {
+            removeModifier(jumpStrength, ID_JUMP_STRENGTH);
+            if (race.getJumpStrengthBonus() != 0) {
+                jumpStrength.addPermanentModifier(new AttributeModifier(
+                        ID_JUMP_STRENGTH, race.getJumpStrengthBonus(), AttributeModifier.Operation.ADD_VALUE));
+            }
+        }
+
         // --- NIGHT VISION ---
         if (race.hasNightVision()) {
             player.addEffect(new MobEffectInstance(
@@ -192,6 +203,7 @@ public class RaceEventHandler {
         clearModifier(player, Attributes.SCALE, ID_SCALE);
         clearModifier(player, Attributes.BLOCK_BREAK_SPEED, ID_MINING_SPEED);
         clearModifier(player, Attributes.WATER_MOVEMENT_EFFICIENCY, ID_SWIM_SPEED);
+        clearModifier(player, Attributes.JUMP_STRENGTH, ID_JUMP_STRENGTH);
     }
 
     private static void clearModifier(ServerPlayer player, net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute> attr, ResourceLocation id) {
@@ -247,10 +259,8 @@ public class RaceEventHandler {
         String raceId = data.getRaceId();
         if (!raceId.equals("aarakocra") && !raceId.equals("aasimar")) return;
 
-        // Se o que tá sendo equipado É elytra, deixa
         if (event.getTo().is(net.minecraft.world.item.Items.ELYTRA)) return;
 
-        // Reverte no próximo tick
         player.server.execute(() -> {
             if (!player.isAlive()) return;
 
@@ -258,7 +268,6 @@ public class RaceEventHandler {
             String currentRaceId = d.getRaceId();
             if (!currentRaceId.equals("aarakocra") && !currentRaceId.equals("aasimar")) return;
 
-            // Devolve o item pro inventário
             ItemStack tentouEquipar = player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST);
             if (RaceElytra.isRaceElytra(tentouEquipar)) return;
             if (!tentouEquipar.isEmpty()) {
@@ -268,7 +277,6 @@ public class RaceEventHandler {
                 }
             }
 
-            // Re-equipa a elytra da raça certa
             ItemStack elytra;
             if (currentRaceId.equals("aasimar")) {
                 elytra = com.pedro.racasclasses.race.impl.AasimarRace.createElytra(player);
@@ -295,7 +303,6 @@ public class RaceEventHandler {
         PlayerRaceData oldData = oldPlayer.getData(ModAttachments.PLAYER_RACE);
         PlayerRaceData newData = newPlayer.getData(ModAttachments.PLAYER_RACE);
 
-        // Copia os dados
         newData.setRaceId(oldData.getRaceId());
         newData.setDragonbornSubrace(oldData.getDragonbornSubrace());
         newData.setElfSubrace(oldData.getElfSubrace());
@@ -306,12 +313,9 @@ public class RaceEventHandler {
 
         String raceId = oldData.getRaceId();
 
-        // Remove elytras do inventário do player ANTIGO (antes do drop)
         if (raceId.equals("aarakocra") || raceId.equals("aasimar")) {
-            // Limpa o slot do peito
             oldPlayer.setItemSlot(net.minecraft.world.entity.EquipmentSlot.CHEST, ItemStack.EMPTY);
 
-            // Remove elytras do inventário
             for (int i = 0; i < oldPlayer.getInventory().getContainerSize(); i++) {
                 ItemStack stack = oldPlayer.getInventory().getItem(i);
                 if (RaceElytra.isRaceElytra(stack)) {
@@ -322,6 +326,7 @@ public class RaceEventHandler {
 
         RacasClasses.LOGGER.info("[CLONE] Copiado raceId={}", oldData.getRaceId());
     }
+
     @SubscribeEvent
     public static void onLivingDrops(net.neoforged.neoforge.event.entity.living.LivingDropsEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
@@ -331,7 +336,6 @@ public class RaceEventHandler {
 
         if (!raceId.equals("aarakocra") && !raceId.equals("aasimar")) return;
 
-        // Remove elytras dos drops
         event.getDrops().removeIf(itemEntity ->
                 RaceElytra.isRaceElytra(itemEntity.getItem())
         );

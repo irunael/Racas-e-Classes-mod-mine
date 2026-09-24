@@ -42,13 +42,13 @@ public class GithyankiRace implements Race {
     @Override
     public boolean hasNightVision() { return true; }
 
-    // ===== Misty Step (tecla H) =====
+    // ===== Misty Step (tecla R) =====
 
     @Override
-    public boolean canUseAbility() { return true; }
+    public boolean canMistyStep() { return true; }
 
     @Override
-    public void executeAbility(ServerPlayer player) {
+    public void executeMistyStep(ServerPlayer player) {
         long currentTick = player.serverLevel().getServer().getTickCount();
         Long readyAt = ABILITY_COOLDOWNS.get(player.getUUID());
 
@@ -86,6 +86,7 @@ public class GithyankiRace implements Race {
 
     // ===== Chamado pelo dispatcher quando o player teleporta =====
 
+    @Override
     public void onTeleport(ServerPlayer player, EntityTeleportEvent event) {
         // Só marca se a flag tiver ativa (ou seja, foi o Misty Step)
         if (!player.getPersistentData().getBoolean("githyanki_pearl_active")) return;

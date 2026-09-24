@@ -28,6 +28,7 @@ public interface Race {
     default double getPoisonResistance() { return 0.0; }
     default double getMiningSpeedBonus() { return 0.0; }
     default double getSwimSpeedBonus() { return 0.0; }
+    default double getJumpStrengthBonus() { return 0.0; }
 
     // ===== Bônus de atributo (D&D 5e → STR/DEX/CON/INT/WIS/LUCK) =====
     // CHA vira LUCK. Cada ponto racial já entra como nível da trilha.
@@ -112,20 +113,25 @@ public interface Race {
 
     /** Chamado quando o player ganha XP de minério (bloco quebrado) */
     default int modifyBlockXp(ServerPlayer player, int originalXp) { return originalXp; }
-    
+
     // ===== Interação com items (Vampire - bloquear comida) =====
-    
+
     default void onItemUse(ServerPlayer player, net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.RightClickItem event) {}
-    
+
     // ===== Interação com entidades (Vampire - drenar animais) =====
-    
+
     default void onEntityInteract(ServerPlayer player, net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract event) {}
-    
+
     // ===== Teleporte (Githyanki) =====
-    
+
     default void onTeleport(ServerPlayer player, EntityTeleportEvent event) {}
-    
+
     // ===== Queda (Harengon, Goliath) =====
-    
+
     default void onFall(ServerPlayer player, LivingFallEvent event) {}
+
+    // ===== Misty Step (tecla R) =====
+
+    default boolean canMistyStep() { return false; }
+    default void executeMistyStep(ServerPlayer player) {}
 }

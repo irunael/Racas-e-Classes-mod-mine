@@ -116,11 +116,18 @@ public class ServerPayloadHandler {
 
             PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
             Race race = RaceRegistry.get(data.getRaceId());
-
             if (race == null) return;
-            if (!race.canSuperJump()) return;
 
-            race.executeSuperJump(player);
+            // Tenta Super Jump primeiro
+            if (race.canSuperJump()) {
+                race.executeSuperJump(player);
+                return;
+            }
+
+            // Se não tiver Super Jump, tenta Misty Step
+            if (race.canMistyStep()) {
+                race.executeMistyStep(player);
+            }
         });
     }
 

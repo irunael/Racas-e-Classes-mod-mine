@@ -1,11 +1,11 @@
 # Raças Implementadas - Guia Completo
 
-Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atributos e comandos.
+Lista completa de todas as 56 raças do mod, com sub-raças, habilidades, atributos e comandos.
 
-**Última atualização:** 20/09/2026  
-**Total de raças:** 53  
-**Total de sub-raças:** 21  
-**Combinações únicas:** 66
+**Última atualização:** 24/09/2026
+**Total de raças:** 56
+**Total de sub-raças:** 29
+**Combinações únicas:** 85
 
 ---
 
@@ -16,7 +16,7 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 3. [Raças Planescape / Ravnica / Eberron (13)](#raças-planescape--ravnica--eberron)
 4. [Raças Góticas / Místicas (5)](#raças-góticas--místicas)
 5. [Raças Elementais (1 com 4 sub-raças)](#raças-elementais)
-6. [Raças Exóticas (5)](#raças-exóticas)
+6. [Raças Exóticas (8)](#raças-exóticas)
 7. [Como Usar](#como-usar)
 8. [Estatísticas](#estatísticas)
 
@@ -39,9 +39,9 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Sub-raças (10):** red, gold, brass, white, silver, blue, bronze, black, copper, green
 - **Atributos:** HP 22 | Dano 1.2 | Armadura 2.0 | Escala 1.00 | Night Vision
 - **Habilidades:**
-  - Baforada elemental (/raca breath, cd 30s)
-  - 75% resistência elemental ou imunidade (poison/acid)
-- **Fraquezas:** Elemento oposto: Fogo ↔ Poison, Gelo ↔ Fogo, Raio ↔ Fogo, Ácido ↔ Raio (+50% dano)
+    - Baforada elemental (tecla H, cd 30s)
+    - 75% resistência elemental ou imunidade (poison/acid)
+- **Fraquezas:** Elemento oposto (+50% dano)
 
 **Ancestralidades:**
 
@@ -65,10 +65,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher dwarf`
 - **Atributos:** HP 24 | Velocidade 0.09 | Escala 0.60 | Night Vision
 - **Habilidades:**
-  - +20% velocidade de mineração
-  - 50% resistência a poison
-  - 3% chance de minério esquentado (2x drop)
-- **Fraquezas:** Impedimento na água: não consegue nadar (aplica Slowness IV)
+    - +20% velocidade de mineração
+    - 50% resistência a poison
+    - 3% chance de minério esquentado (2x drop)
+- **Fraquezas:** Impedimento na água (não consegue nadar)
 
 ---
 
@@ -78,14 +78,14 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Sub-raças (2):** wood, drow
 - **Atributos Base:** HP 20 | Night Vision
 - **Habilidade Base:** +25% dano com arco/besta
-- **Fraquezas:** Wood Elf: +50% dano de fogo e fraqueza sem folhagem | Drow: +50% dano no sol + Weakness + Darkness
+- **Fraquezas:** Wood Elf: +50% dano de fogo | Drow: +50% dano no sol + Weakness + Darkness
 
 **Sub-raças:**
 
 | Sub-raça | Especial |
 |----------|----------|
 | 🌲 **Wood Elf** | Escala 1.10, HP 19, vel 0.11. Em florestas: Regeneration + Speed II + Strength |
-| 🕷️ **Drow** | +1.5 armadura. Escuro: Speed II + Strength II + Resistance. Sol: Weakness + Darkness |
+| 🕷️ **Drow** | +1.5 armadura. Escuro: Speed II + Strength II + Resistance + Glowing. Sol: Weakness + Darkness + dano |
 
 ---
 
@@ -94,13 +94,13 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher gnome <sub-raça>`
 - **Sub-raças (2):** forest, rock
 - **Atributos Base:** HP 20 | Velocidade 0.09 | Escala 0.60 | Night Vision
-- **Fraquezas:** Forest Gnome: +50% dano de fogo | Rock Gnome: +30% dano de explosão e impedimento na água
+- **Fraquezas:** Forest Gnome: +50% dano de fogo | Rock Gnome: +30% dano de explosão
 
 **Sub-raças:**
 
 | Sub-raça | Especial |
 |----------|----------|
-| 🌲 **Forest Gnome** | Invisibilidade ao agachar, mobs pacíficos não atacam, Speed perto de folhagem |
+| 🌲 **Forest Gnome** | Mobs pacíficos/lobos/aranhas não atacam, Speed perto de folhagem |
 | 🪨 **Rock Gnome** | +2 HP, imunidade queda (3 blocos), XP extra em minérios |
 
 ---
@@ -108,11 +108,11 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 ### 🧝‍♂️ Meio-Elfo
 - **ID:** `halfelf`
 - **Comando:** `/raca escolher halfelf`
-- **Atributos:** HP 22 | Night Vision
+- **Atributos:** HP 22 | Night Vision | +2 LUCK + 2 pontos livres
 - **Habilidades:**
-  - Invisibilidade em florestas
-  - +10% XP
-  - +15% velocidade de nado
+    - Invisibilidade em florestas
+    - +10% XP
+    - +15% velocidade de nado
 - **Fraquezas:** Fome 15% mais rápida
 
 ---
@@ -120,10 +120,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 ### 🪓 Meio-Orc
 - **ID:** `halforc`
 - **Comando:** `/raca escolher halforc`
-- **Atributos:** HP 24 | Dano 1.2 | Escala 1.10 | Night Vision
+- **Atributos:** HP 24 | Dano 1.2 | Escala 1.10 | Night Vision | +2 STR +1 CON
 - **Habilidades:**
-  - +20% dano crítico
-  - Esqueletos fogem (Menacing)
+    - +20% dano crítico (Savage Attacks)
+    - Esqueletos fogem (Menacing)
 - **Fraquezas:** +30% dano de magia
 
 ---
@@ -132,18 +132,18 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **ID:** `halfling`
 - **Comando:** `/raca escolher halfling <sub-raça>`
 - **Sub-raças (2):** lightfoot, stout
-- **Atributos Base:** HP 20 | Velocidade 0.09 | Escala 0.55
+- **Atributos Base:** HP 20 | Velocidade 0.09 | Escala 0.55 | +2 DEX
 - **Habilidades Base:**
-  - Lucky (10% drop extra)
-  - Brave (imune a Weakness/Slowness)
-- **Fraquezas:** Lightfoot: Fome 25% mais rápida | Stout: +25% dano de veneno e impedimento na água
+    - Lucky (10% drop extra)
+    - Brave (imune a Weakness/Slowness)
+- **Fraquezas:** Lightfoot: Fome 15% mais rápida | Stout: +25% dano de veneno
 
 **Sub-raças:**
 
 | Sub-raça | Especial |
 |----------|----------|
-| 🌲 **Lightfoot** | Invisibilidade ao agachar, Backstab (+20% pelas costas) |
-| 🪨 **Stout** | +6 HP, 20% resistência a dano físico |
+| 🌲 **Lightfoot** | +1 LUCK, Invisibilidade (H, 5s, cd 30s), Backstab (+20% pelas costas) |
+| 🪨 **Stout** | +1 CON, +6 HP, 20% resistência a dano físico |
 
 ---
 
@@ -151,9 +151,9 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **ID:** `tiefling`
 - **Comando:** `/raca escolher tiefling <sub-raça>`
 - **Sub-raças (3):** asmodeus, levistus, zariel
-- **Atributos Base:** HP 20 | Night Vision
+- **Atributos Base:** HP 20 | Night Vision | +1 INT +2 LUCK
 - **Habilidade Base:** 75% resistência a fogo
-- **Fraquezas:** +30% dano sagrado (MAGIC) | Asmodeus: fraqueza a gelo | Levistus: fraqueza a fogo | Zariel: fraqueza a magia
+- **Fraquezas:** +30% dano sagrado (MAGIC) | Asmodeus: +50% gelo | Levistus: +50% fogo | Zariel: +50% magia
 
 **Sub-raças:**
 
@@ -172,10 +172,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher aarakocra`
 - **Atributos:** HP 20 | Escala 1.00
 - **Habilidades:**
-  - Talons (+3 dano desarmado)
-  - Elytra permanente (Curse of Binding)
-  - **Super Jump (R):** pula 5 blocos, cd 10s
-- **Fraquezas:** +50% dano de queda | Não pode usar peitoral no lugar da elytra
+    - Talons (+3 dano desarmado)
+    - Elytra permanente (Curse of Binding)
+    - **Super Jump (R):** pula 5 blocos, cd 10s
+- **Fraquezas:** +50% dano de queda | Não pode usar peitoral
 
 ---
 
@@ -184,12 +184,12 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher aasimar`
 - **Atributos:** HP 24 | Escala 1.00 | Night Vision
 - **Habilidades:**
-  - +20% dano corpo a corpo
-  - 50% resistência a Wither/Magia
-  - Elytra permanente
-  - **Healing Hands (H):** cura 4 ❤️, cd 60s
-  - **Super Jump (R):** pula 5 blocos
-- **Fraquezas:** +50% dano de fogo (elemento oposto ao celestial) | +20% dano de armas
+    - +20% dano corpo a corpo
+    - 50% resistência a Wither
+    - Elytra permanente
+    - **Healing Hands (H):** cura 4 ❤️, cd 60s
+    - **Super Jump (R):** pula 5 blocos
+- **Fraquezas:** +50% dano de fogo | +20% dano de armas | +20% dano mágico
 
 ---
 
@@ -198,10 +198,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher goliath`
 - **Atributos:** HP 28 | Dano 1.3 | Velocidade 0.07 | Escala 1.50
 - **Habilidades:**
-  - Resistência a knockback
-  - **Stone's Endurance (H):** -75% dano por 10s, cd 60s
-  - Redução de dano de queda: -5 blocos
-- **Fraquezas:** +30% dano de explosão (vulnerabilidade devido ao tamanho)
+    - Resistência a knockback
+    - **Stone's Endurance (H):** Resistance IV por 10s, cd 60s
+    - Redução de dano de queda: -5 blocos
+- **Fraquezas:** +30% dano de explosão
 
 ---
 
@@ -210,11 +210,11 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher tabaxi`
 - **Atributos:** HP 20 | Velocidade 0.12 | Escala 1.00 | Night Vision
 - **Habilidades:**
-  - +2 dano desarmado (garras)
-  - **Feline Agility (H):** Speed III por 5s, cd 30s
-  - Imunidade total a queda
-  - Coelhos e galinhas fogem
-- **Fraquezas:** Sofre 1 dano/tick na água (hidrofobia)
+    - +2 dano desarmado (garras)
+    - **Feline Agility (H):** Speed III por 5s, cd 30s
+    - Imunidade total a queda
+    - Coelhos e galinhas fogem
+- **Fraquezas:** 1 dano/tick na água
 
 ---
 
@@ -223,11 +223,11 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher triton`
 - **Atributos:** HP 22 | Escala 1.00
 - **Habilidades:**
-  - Respira na água infinitamente
-  - **Submerso:** Night Vision + Dolphin's Grace + Haste III + Strength II
-  - +20% dano com tridente
-  - 50% resistência a freeze
-- **Fraquezas:** +50% dano de fogo (elemento oposto à água)
+    - Respira na água infinitamente
+    - **Submerso:** Night Vision + Dolphin's Grace + Haste III + Strength II
+    - +20% dano com tridente
+    - 50% resistência a freeze
+- **Fraquezas:** +50% dano de fogo
 
 ---
 
@@ -236,11 +236,11 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher orc`
 - **Atributos:** HP 24 | Escala 1.30 | Night Vision
 - **Habilidades:**
-  - **Adrenaline Rush (H):** Speed I + Strength II + cura 3 ❤️, 10s, cd 45s
-  - +10% dano corpo a corpo em mobs
-  - Zumbis e esqueletos não atacam
-  - -15% dano recebido corpo a corpo
-- **Fraquezas:** +50% dano de fogo, raio e magia (elementos opostos à resistência física)
+    - **Adrenaline Rush (H):** Speed I + Strength II + cura 3 ❤️, 10s, cd 45s
+    - +10% dano corpo a corpo em mobs
+    - Zumbis e esqueletos não atacam
+    - -15% dano recebido corpo a corpo
+- **Fraquezas:** +50% dano de fogo, raio e magia
 
 ---
 
@@ -249,9 +249,9 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher goblin`
 - **Atributos:** HP 18 | Velocidade 0.12 | Escala 0.65 | Night Vision
 - **Habilidades:**
-  - **Nimble Escape (H):** Invisibilidade 10s, cd 30s
-  - +velocidade ao agachar
-  - -30% dano mágico
+    - **Nimble Escape (H):** Invisibilidade 10s, cd 30s
+    - +velocidade ao agachar
+    - -30% dano mágico
 - **Fraquezas:** +20% dano de armas físicas
 
 ---
@@ -259,10 +259,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 ### ⚔️ Hobgoblin
 - **ID:** `hobgoblin`
 - **Comando:** `/raca escolher hobgoblin`
-- **Atributos:** HP 22 | Dano 1.1 | Escala 1.00 | Night Vision
+- **Atributos:** HP 22 | Dano 1.1 | Escala 1.00 | **Armadura 1.5** | Night Vision
 - **Habilidades:**
-  - +30% dano com espadas e machados
-  - **Saving Face (H):** Strength I por 10s, cd 30s
+    - +30% dano com espadas e machados
+    - **Saving Face (H):** Strength I por 10s, cd 30s
 - **Fraquezas:** +30% dano de magia
 
 ---
@@ -270,13 +270,13 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 ### 🦎 Lizardfolk
 - **ID:** `lizardfolk`
 - **Comando:** `/raca escolher lizardfolk`
-- **Atributos:** HP 22 | Armadura +4 | Escala 1.00
+- **Atributos:** HP 22 | Escala 1.00
 - **Habilidades:**
-  - +3 dano desarmado (mordida)
-  - Respiração aquática
-  - +50% nado
-  - Ao matar mob: cura 1 ❤️
-- **Fraquezas:** +75% dano de lava (elemento oposto à água)
+    - +3 dano desarmado (mordida)
+    - Respiração aquática
+    - +50% nado
+    - Ao matar mob: cura 1 ❤️
+- **Fraquezas:** +75% dano de lava
 
 ---
 
@@ -285,11 +285,11 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher minotaur`
 - **Atributos:** HP 24 | Dano 1.2 | Escala 1.20
 - **Habilidades:**
-  - Ataque empurra mais (knockback)
-  - +30% dano se correndo
-  - -15% dano recebido
-  - **Goring Rush (H):** Speed II por 5s, cd 30s
-- **Fraquezas:** +30% dano perfurante (vulnerabilidade devido ao tamanho)
+    - Ataque empurra mais (knockback)
+    - +30% dano se correndo
+    - -15% dano recebido
+    - **Goring Rush (H):** Speed II por 5s, cd 30s
+- **Fraquezas:** +30% dano perfurante
 
 ---
 
@@ -298,10 +298,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher firbolg`
 - **Atributos:** HP 22 | Escala 1.20 | Night Vision
 - **Habilidades:**
-  - Speed I + Regeneration I perto de folhagem
-  - **Hidden Step (H):** Invisibilidade 5s, cd 30s
-  - **Animal Whisperer:** doma qualquer animal com mão vazia (100%)
-- **Fraquezas:** +50% dano de fogo (elemento oposto à natureza)
+    - Speed I + Regeneration I perto de folhagem
+    - **Hidden Step (H):** Invisibilidade 5s, cd 30s
+    - **Animal Whisperer:** doma qualquer animal com mão vazia (100%)
+- **Fraquezas:** +50% dano de fogo
 
 ---
 
@@ -310,9 +310,9 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher kobold`
 - **Atributos:** HP 16 | Velocidade 0.12 | Escala 0.50 | Night Vision
 - **Habilidades:**
-  - **Draconic Cry (H):** Strength I (5s) + Regeneration I (15s), cd 30s
-  - Pack Tactics (+10% dano com aliado perto)
-- **Fraquezas:** Sunlight Sensitivity (Weakness no sol, +30% dano recebido)
+    - **Draconic Cry (H):** Strength I (5s) + Regeneration I (15s), cd 30s
+    - Pack Tactics (+10% dano com aliado perto)
+- **Fraquezas:** Sol: Weakness + **+20% dano**
 
 ---
 
@@ -321,38 +321,35 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher leonin`
 - **Atributos:** HP 22 | Dano 1.1 | Velocidade 0.11 | Escala 1.10 | Night Vision
 - **Habilidades:**
-  - Garras (+3 dano desarmado)
-  - **Daunting Roar (H):** Strength III por 10s, cd 30s
-  - +20% dano em mobs
-- **Fraquezas:** Carnívoro (só come carne), fome 30% mais rápida
+    - **+20% dano melee em mobs**
+    - **Daunting Roar (H):** Strength III por 10s, **cd 45s**
+- **Fraquezas:** Carnívoro (só come carne), **fome 50% mais rápida**
 
 ---
 
 ### 🎵 Satyr
 - **ID:** `satyr`
 - **Comando:** `/raca escolher satyr`
-- **Atributos:** HP 20 | Velocidade 0.11 | Escala 0.85
+- **Atributos:** HP 20 | **Velocidade 0.12** | Escala 0.85
 - **Habilidades:**
-  - Speed I permanente
-  - -30% dano mágico
-  - **Super Jump (R):** pula 5 blocos
-  - Regeneration I perto de jukebox tocando
-  - Resistência a queda (5 blocos)
-  - **Instrumento Mágico (H):** Nausea + Weakness raio 6, 10s, cd 45s
-- **Fraquezas:** +30% dano de armas de ferro (metal ferroeiro)
+    - -30% dano mágico
+    - **Super Jump (R):** pula 5 blocos
+    - Resistência a queda (5 blocos)
+    - **Instrumento Mágico (H):** Nausea + Weakness raio 6, 10s, **cd 60s**
+- **Fraquezas:** +30% dano de armas de ferro
 
 ---
 
 ### 🐢 Tortle
 - **ID:** `tortle`
 - **Comando:** `/raca escolher tortle`
-- **Atributos:** HP 26 | Velocidade 0.09 | Escala 1.10
+- **Atributos:** HP 26 | **Velocidade 0.06** | Escala 1.10 | **+0.67 bônus de nado**
 - **Habilidades:**
-  - **60% redução de dano** (natural)
-  - **Bloqueia armadura em TODOS os slots**
-  - **Shell Defense (H):** -50% dano por 10s, cd 30s
-  - Respira na água infinitamente
-- **Fraquezas:** +30% dano de fogo | Velocidade reduzida (0.06) | Não pode equipar armaduras
+    - **60% redução de dano** (natural)
+    - **Bloqueia armadura em TODOS os slots**
+    - **Shell Defense (H):** -50% dano por 10s, cd 30s
+    - Respira na água infinitamente
+- **Fraquezas:** **+30% dano de fogo** | Velocidade reduzida (0.06) | Não pode equipar armaduras
 
 ---
 
@@ -361,10 +358,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher verdan`
 - **Atributos:** HP 22 | Escala 1.00
 - **Habilidades:**
-  - **Black Blood Healing:** ao tomar dano → cura 1 ❤️ (cd 30s)
-  - -20% dano mágico
-  - Regeneração lenta quando ≤3 ❤️
-- **Fraquezas:** +30% dano de magia
+    - **Black Blood Healing:** ao tomar dano → cura 1 ❤️ (cd 30s)
+    - -20% dano mágico
+    - Regeneração lenta quando ≤3 ❤️
+- **Fraquezas:** **+30% dano perfurante**
 
 ---
 
@@ -373,11 +370,11 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher quacho`
 - **Atributos:** HP 18 | Velocidade 0.11 | Escala 0.65
 - **Habilidades:**
-  - Respira na água infinitamente
-  - Imunidade a poison
-  - Poisonous Skin: quem te bate toma poison
-  - -10% dano recebido (geral)
-- **Fraquezas:** +30% dano de fogo e lava (elemento oposto à água)
+    - Respira na água infinitamente
+    - Imunidade a poison (dano + efeito)
+    - Poisonous Skin: quem te bate toma poison
+    - -10% dano recebido (geral)
+- **Fraquezas:** +30% dano de fogo e lava
 
 ---
 
@@ -386,11 +383,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 ### 🔮 Githyanki
 - **ID:** `githyanki`
 - **Comando:** `/raca escolher githyanki`
-- **Atributos:** HP 22 | Dano 1.1 | Velocidade 0.10 | Night Vision
+- **Atributos:** HP 22 | Dano 1.2 | Armadura 1.0 | Night Vision
 - **Habilidades:**
-  - **Astral Blade (H):** Espada espectral (Sharp V, Unbreaking ∞) por 30s, cd 60s
-  - **Teleport (R):** Teleporte 15 blocos, cd 30s
-  - -20% dano mágico
+    - **Misty Step (R):** Lança uma ender pearl que teleporta, cd 10s
+    - Imunidade a queda após teleporte
 - **Fraquezas:** +30% dano mágico
 
 ---
@@ -398,11 +394,12 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 ### 🐦 Kenku
 - **ID:** `kenku`
 - **Comando:** `/raca escolher kenku`
-- **Atributos:** HP 18 | Velocidade 0.11 | Escala 0.85
+- **Atributos:** HP 20 | Velocidade 0.11 | **Escala 0.85** | Night Vision
 - **Habilidades:**
-  - **Mimicry:** Copia sons ao matar mobs
-  - **Expert Forgery:** +50% XP de XP orbs
-  - **Não pode negociar com villagers** (sem fala)
+    - Invisibilidade ao agachar (sem cooldown)
+    - **Mimicry (H):** Som aleatório de mob
+    - **Não pode negociar com villagers**
+    - Illagers não atacam
 - **Fraquezas:** Villagers recusam trocas | +30% dano de projéteis
 
 ---
@@ -410,25 +407,23 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 ### 🐰 Harengon
 - **ID:** `harengon`
 - **Comando:** `/raca escolher harengon`
-- **Atributos:** HP 20 | Velocidade 0.13 | Escala 0.90
+- **Atributos:** HP 20 | **Velocidade 0.13** | **Escala 0.90** | Night Vision
 - **Habilidades:**
-  - **Rabbit Hop (R):** Super Jump, cd 5s
-  - **Lucky Footwork:** Imunidade total a queda
-  - **Hare-Trigger:** Speed I + Jump Boost I permanentes
-  - Mobs caçam coelhos agressivamente
-- **Fraquezas:** +50% dano de fogo (elemento oposto à agilidade)
+    - **Pulo mais alto** (sem Super Jump)
+    - **Resistência a queda (5 blocos)**
+- **Fraquezas:** +50% dano de fogo
 
 ---
 
 ### 🐍 Yuan-Ti
 - **ID:** `yuanti`
 - **Comando:** `/raca escolher yuanti`
-- **Atributos:** HP 22 | Dano 1.0 | Velocidade 0.10 | Night Vision
+- **Atributos:** HP 22 | Dano 1.0 | Velocidade 0.10 | Armadura 3.0 | Night Vision
 - **Habilidades:**
-  - **Poison Spray (H):** Projétil venenoso 15 blocos, cd 30s
-  - Imunidade total a poison
-  - +50% nado
-  - Ataque mão vazia aplica Poison I
+    - Ataque mão vazia aplica Poison I por 3s
+    - Respira na água
+    - +50% nado
+    - **Constrict (H):** Prende alvo (raio 8) no lugar por 5s + 4 dano + Poison II, cd 30s
 - **Fraquezas:** +30% dano de mobs mortos-vivos
 
 ---
@@ -438,10 +433,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher kender`
 - **Atributos:** HP 18 | Velocidade 0.11 | Escala 0.70
 - **Habilidades:**
-  - **Lucky:** 15% drop extra de mobs
-  - **Taunt (H):** Provoca mobs raio 8, duram 10s, cd 40s
-  - **Fearless:** Imune a medo e Darkness
-  - **Pickpocket:** Chance de roubar item ao matar
+    - **Lucky:** 15% drop extra de mobs
+    - **Taunt (H):** Provoca mobs raio 8, duram 10s, cd 40s
+    - **Fearless:** Imune a medo e Darkness
+    - **Pickpocket:** Chance de roubar item ao matar
 - **Fraquezas:** Fome 25% mais rápida
 
 ---
@@ -451,10 +446,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher khenra`
 - **Atributos:** HP 20 | Dano 1.1 | Velocidade 0.11 | Escala 1.00 | Night Vision
 - **Habilidades:**
-  - **Pack Tactics:** +15% dano com aliado perto
-  - **Desert Runner:** Speed I em desertos
-  - **Momentum Rush (H):** Speed III por 5s, cd 30s
-- **Fraquezas:** +50% dano de fogo (elemento oposto à agilidade)
+    - **Pack Tactics:** +15% dano com aliado perto
+    - **Desert Runner:** Speed I em desertos
+    - **Momentum Rush (H):** Speed III por 5s, cd 30s
+- **Fraquezas:** +50% dano de fogo
 
 ---
 
@@ -463,10 +458,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher warforged`
 - **Atributos:** HP 26 | Dano 1.1 | Velocidade 0.09 | Armadura 3.0 | Escala 1.10
 - **Habilidades:**
-  - **Não precisa comer** (fome não diminui)
-  - **Sentry's Rest:** Regeneration I quando parado
-  - **Integrated Protection (H):** Resistance II por 10s, cd 60s
-  - Imunidade a poison e disease
+    - **Não precisa comer**
+    - **Sentry's Rest:** Regeneration I quando parado
+    - **Integrated Protection (H):** Resistance II por 10s, cd 60s
+    - Imunidade a poison e disease
 - **Fraquezas:** +30% dano de raio
 
 ---
@@ -476,13 +471,13 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher vampire`
 - **Atributos:** HP 22 | Dano 1.2 | Velocidade 0.10 | Night Vision
 - **Habilidades:**
-  - **Drenagem (SHIFT + click em animal):** Suga vida, recupera fome + HP
-  - **Blood Drain (H):** +3 corações, Wither II no alvo, cd 40s
-  - Ataque desarmado: +2 dano
-  - Fome 20% mais lenta
+    - **Drenagem (SHIFT + click em animal):** Suga vida, recupera fome + HP
+    - **Blood Drain (H):** +3 corações, Wither II no alvo, cd 40s
+    - Ataque desarmado: +2 dano
+    - Fome 20% mais lenta
 - **Fraquezas:**
-  - **Sol:** Fire Damage + Nausea 99 (máximo)
-  - **Não pode comer nada** (só drenagem)
+    - **Sol:** Fire Damage + Nausea 99
+    - **Não pode comer nada**
 
 ---
 
@@ -491,9 +486,9 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher changeling`
 - **Atributos:** HP 20 | Velocidade 0.10
 - **Habilidades:**
-  - **Shapechanger (H):** Copia nome de player por 60s, cd 120s
-  - +15% velocidade
-  - Mobs neutros são mais amigáveis
+    - **Shapechanger (H):** Copia nome de player por 60s, cd 120s
+    - +15% velocidade
+    - Mobs neutros são mais amigáveis
 - **Fraquezas:** +30% dano de magia
 
 ---
@@ -503,9 +498,9 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher siren`
 - **Atributos:** HP 20 | Velocidade 0.10
 - **Habilidades:**
-  - Respira na água
-  - +50% nado
-  - **Enchanting Song (H):** Atrai mobs raio 12, duram 10s, cd 50s
+    - Respira na água
+    - +50% nado
+    - **Enchanting Song (H):** Atrai mobs raio 12, duram 10s, cd 50s
 - **Fraquezas:** +50% dano de fogo
 
 ---
@@ -515,9 +510,9 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher hadozee`
 - **Atributos:** HP 20 | Velocidade 0.11 | Escala 0.95
 - **Habilidades:**
-  - **Glide:** Slow Falling permanente
-  - **Climbing (SHIFT + olhar parede):** Escala paredes
-  - +2 dano desarmado
+    - **Glide:** Slow Falling permanente
+    - **Climbing (SHIFT + olhar parede):** Escala paredes
+    - +2 dano desarmado
 - **Fraquezas:** +30% dano perfurante
 
 ---
@@ -527,9 +522,9 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher giff`
 - **Atributos:** HP 28 | Dano 1.3 | Velocidade 0.08 | Armadura 2.0 | Escala 1.40
 - **Habilidades:**
-  - **Astral Spark (H):** Explosão raio 4, 8 de dano, cd 45s
-  - Resistência a knockback
-  - +20% dano com qualquer arma
+    - **Astral Spark (H):** Explosão raio 4, 8 de dano, cd 45s
+    - Resistência a knockback
+    - +20% dano com qualquer arma
 - **Fraquezas:** +30% dano de explosão
 
 ---
@@ -542,10 +537,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Sub-raças (3):** longtooth, razorclaw, wildhunt
 - **Atributos:** HP 22 | Dano 1.0 | Velocidade 0.11 | Night Vision
 - **Sistema de 2 estágios:**
-  - **H (1ª vez):** Ativa Shifting por 30s (buffs + partículas)
-  - **H (2ª vez durante Shifting):** Usa poder especial
-  - **Cooldown:** 60s após Shifting terminar
-- **Fraquezas:** +30% dano de armas de ferro (metal ferroeiro)
+    - **H (1ª vez):** Ativa Shifting por 30s (buffs + partículas)
+    - **H (2ª vez durante Shifting):** Usa poder especial
+    - **Cooldown:** 60s após Shifting terminar
+- **Fraquezas:** +30% dano de armas de ferro
 
 **Sub-raças:**
 
@@ -562,10 +557,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher vedalken`
 - **Atributos:** HP 20 | Dano 1.0 | Velocidade 0.10 | Night Vision
 - **Habilidades:**
-  - -30% dano mágico
-  - +10% XP de mobs
-  - **Arcane Insight (H):** Glowing em monstros raio 10 por 10s, cd 60s
-- **Fraquezas:** +30% dano físico (trade-off pela resistência mágica)
+    - -30% dano mágico
+    - +10% XP de mobs
+    - **Arcane Insight (H):** Glowing em monstros raio 10 por 10s, cd 60s
+- **Fraquezas:** +30% dano físico
 
 ---
 
@@ -574,9 +569,9 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher hexblood`
 - **Atributos:** HP 20 | Dano 1.0 | Velocidade 0.10 | Night Vision
 - **Habilidades:**
-  - -20% dano mágico
-  - Quem te ataca corpo a corpo toma Nausea I por 3s
-  - **Hex (H):** Marca mob por 30s (+20% dano dele), cd 45s
+    - -20% dano mágico
+    - Quem te ataca corpo a corpo toma Nausea I por 3s
+    - **Hex (H):** Marca mob por 30s (+20% dano dele), cd 45s
 - **Fraquezas:** +30% dano sagrado (MAGIC)
 
 ---
@@ -586,11 +581,11 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher reborn`
 - **Atributos:** HP 22 | Dano 1.0 | Velocidade 0.10 | Night Vision
 - **Habilidades:**
-  - Respira na água
-  - 50% resistência a poison
-  - +10% XP de mobs
-  - **Deathly Resilience (H):** Se HP < 6, ganha Resistance II + Regeneration II por 5s, cd 60s
-- **Fraquezas:** +50% dano de fogo (elemento oposto à reconstrução)
+    - Respira na água
+    - 50% resistência a poison
+    - +10% XP de mobs
+    - **Deathly Resilience (H):** Se HP < 6, ganha Resistance II + Regeneration II por 5s, cd 60s
+- **Fraquezas:** +50% dano de fogo
 
 ---
 
@@ -599,10 +594,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher plasmoid`
 - **Atributos:** HP 22 | Dano 1.0 | Velocidade 0.10 | Escala 0.70 | Night Vision
 - **Habilidades:**
-  - Respira na água
-  - Imunidade a poison
-  - **Amorphous (H):** Invisibilidade + Resistance I por 3s, cd 60s
-- **Fraquezas:** +50% dano de gelo (elemento oposto à forma amorfa)
+    - Respira na água
+    - Imunidade a poison
+    - **Amorphous (H):** Invisibilidade + Resistance I por 3s, cd 60s
+- **Fraquezas:** +50% dano de gelo
 
 ---
 
@@ -612,7 +607,7 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **ID:** `genasi`
 - **Comando:** `/raca escolher genasi <elemento>`
 - **Sub-raças (4):** ar, fogo, terra, agua
-- **Fraquezas:** Ar: +30% dano de explosão | Fogo: +50% dano na água e chuva (elemento oposto) | Terra: +30% dano de explosão | Água: +50% dano de fogo (elemento oposto)
+- **Fraquezas:** Ar: +30% explosão | Fogo: +50% água/chuva | Terra: +30% explosão | Água: +50% fogo
 
 **Sub-raças:**
 
@@ -632,11 +627,11 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher naga`
 - **Atributos:** HP 22 | Dano 1.0 | Velocidade 0.10 | Armadura 3.0 | Night Vision
 - **Habilidades:**
-  - Ataque mão vazia aplica Poison I por 3s
-  - Respira na água
-  - +50% nado
-  - **Constrict (H):** Prende alvo (raio 8) no lugar por 5s + 4 dano + Poison II, cd 30s
-- **Fraquezas:** +30% dano de mobs mortos-vivos (resistência à vida natural)
+    - Ataque mão vazia aplica Poison I por 3s
+    - Respira na água
+    - +50% nado
+    - **Constrict (H):** Prende alvo (raio 8) no lugar por 5s + 4 dano + Poison II, cd 30s
+- **Fraquezas:** +30% dano de mobs mortos-vivos
 
 ---
 
@@ -645,11 +640,11 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher kalashtar`
 - **Atributos:** HP 22 | Dano 1.0 | Velocidade 0.10 | Night Vision
 - **Habilidades:**
-  - -50% dano mágico
-  - Imune a Nausea
-  - **Telepatia (passiva):** Mostra players raio 20 ao agachar (a cada 1s)
-  - **Mind Link (H):** Glowing em hostis raio 16 por 10s, cd 30s
-- **Fraquezas:** +30% dano físico (trade-off pela resistência mágica)
+    - -50% dano mágico
+    - Imune a Nausea
+    - **Telepatia (passiva):** Mostra players raio 20 ao agachar (a cada 1s)
+    - **Mind Link (H):** Glowing em hostis raio 16 por 10s, cd 30s
+- **Fraquezas:** +30% dano físico
 
 ---
 
@@ -659,7 +654,7 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Sub-raças (3):** manta, climber, grappling
 - **Atributos:** HP 22 | Dano 1.0 | Velocidade 0.10 | Night Vision
 - **Habilidade base (H):** Adaptive Shield - Resistance I por 10s, cd 45s
-- **Fraquezas:** +30% dano de magia (trade-off pela adaptabilidade)
+- **Fraquezas:** +30% dano de magia
 
 **Mutações:**
 
@@ -676,11 +671,11 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher loxodon`
 - **Atributos:** HP 28 | Dano 1.1 | Velocidade 0.08 | Armadura 4.0 | Escala 1.30 | Night Vision
 - **Habilidades:**
-  - Resistência a knockback
-  - +2 dano desarmado (tromba)
-  - Imunidade a queda (3 blocos)
-  - **Trunk Slam (H):** 6 dano área raio 3 + knockback forte, cd 30s
-- **Fraquezas:** +30% dano de explosão (vulnerabilidade devido ao tamanho)
+    - Resistência a knockback
+    - +2 dano desarmado (tromba)
+    - Imunidade a queda (3 blocos)
+    - **Trunk Slam (H):** 6 dano área raio 3 + knockback forte, cd 30s
+- **Fraquezas:** +30% dano de explosão
 
 ---
 
@@ -689,39 +684,46 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 - **Comando:** `/raca escolher centaur`
 - **Atributos:** HP 24 | Dano 1.1 | Velocidade 0.12 | Escala 1.15
 - **Habilidades:**
-  - +2 dano desarmado (cascos)
-  - Imunidade a queda (2 blocos)
-  - **Charge (H):** Speed III por 5s, ao colidir: 4 dano + knockback 2.5 blocos + termina charge, cd 30s
-- **Fraquezas:** +30% dano perfurante (vulnerabilidade devido ao tamanho)
+    - +2 dano desarmado (cascos)
+    - Imunidade a queda (2 blocos)
+    - **Charge (H):** Speed III por 5s, ao colidir: 4 dano + knockback 2.5 blocos + termina charge, cd 30s
+- **Fraquezas:** +30% dano perfurante
+
+---
 
 ### 🐥 Fungril
 - **ID:** `fungril`
 - **Comando:** `/raca escolher fungril`
 - **Atributos:** HP 22 | Velocidade 0.08 | Escala 1.05 | Armadura 3.0 | Night Vision
 - **Habilidades:**
-  - Aura de veneno
-  - **Spore Cloud (H):** Nuvem de esporos, cd 30s
-- **Fraquezas:** +50% dano de fogo (elemento oposto ao fungo)
+    - Aura de veneno
+    - **Spore Cloud (H):** Nuvem de esporos, cd 30s
+- **Fraquezas:** +50% dano de fogo
+
+---
 
 ### 🐵 Wukong
 - **ID:** `wukong`
 - **Comando:** `/raca escolher wukong`
 - **Atributos:** HP 22 | Dano 1.2 | Velocidade 0.11 | Night Vision
 - **Habilidades:**
-  - +2 dano desarmado
-  - Escala paredes agachado
-  - **Rugido (H):** Rugido poderoso, cd 30s
-- **Fraquezas:** Sofre 1 dano/tick na água (hidrofobia) | +30% dano de raio (elemento oposto)
+    - **Pulo mais alto** (JUMP_STRENGTH +0.1)
+    - **Pulo duplo (Espaço no ar)**
+    - Escala paredes agachado
+    - **Rugido (H):** Weakness + Nausea raio 6, cd 90s
+- **Fraquezas:** 1 dano/tick na água | +30% dano de raio
+
+---
 
 ### 🕷️ Drider
 - **ID:** `drider`
 - **Comando:** `/raca escolher drider`
 - **Atributos:** HP 22 | Dano 1.2 | Night Vision
 - **Habilidades:**
-  - Escala paredes agachado
-  - Aranhas não atacam
-  - **Teia (H):** Teia aracnídea, cd 30s
-  - Fome 20% mais lenta
+    - Escala paredes agachado
+    - Aranhas não atacam
+    - **Teia (H):** Teia aracnídea, cd 30s
+    - Fome 20% mais lenta
 - **Fraquezas:** Só come carne | +50% dano de fogo
 
 ---
@@ -729,6 +731,7 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 ## Como Usar
 
 ### Comandos Básicos
+
 
 ```
 /raca listar                    # Lista todas as raças
@@ -757,8 +760,10 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 
 | Tecla | Função |
 |-------|--------|
-| **R** | Super Jump (Aarakocra, Aasimar, Satyr, Genasi Ar, Harengon, Githyanki) |
+| **P** | Abre o menu de atributos (STR, DEX, CON, INT, WIS, LUCK) |
+| **R** | Super Jump / Misty Step / Habilidade R (Aarakocra, Aasimar, Satyr, Genasi Ar, Githyanki) |
 | **H** | Habilidade ativa (cada raça tem uma única ou Shifter tem sistema duplo) |
+| **Espaço** | Pulo duplo (Wukong, Harengon) |
 
 ---
 
@@ -766,16 +771,22 @@ Lista completa de todas as 53 raças do mod, com sub-raças, habilidades, atribu
 
 | Categoria | Quantidade |
 |-----------|------------|
-| **Raças totais** | 53 |
-| **Raças com sub-raças** | 7 |
-| **Sub-raças totais** | 22 |
-| **Combinações únicas** | 67 |
-| **Habilidades ativas (H)** | 43 |
-| **Super Jumps (R)** | 6 |
+| **Raças totais** | 56 |
+| **Raças com sub-raças** | 8 |
+| **Sub-raças totais** | 29 |
+| **Combinações únicas** | 85 |
+| **Habilidades ativas (H)** | 43+ |
+| **Super Jumps (R)** | 5 |
+| **Misty Steps (R)** | 1 |
+| **Pulos duplos** | 2 (Wukong, Harengon) |
+| **Atributos** | 6 (STR, DEX, CON, INT, WIS, LUCK) |
+| **Níveis de personagem** | 120 |
+| **Níveis por atributo** | 50 |
 | **Raças aquáticas** | 8 |
 | **Raças tanque (HP ≥ 26)** | 6 |
 | **Raças pequenas (escala < 0.70)** | 6 |
 | **Raças grandes (escala > 1.20)** | 5 |
+| **Linhas de código** | ~18.000 |
 
 ---
 
@@ -790,24 +801,26 @@ public interface Race {
     // Identificação
     String getId();
     String getDisplayName();
-    
+
     // Atributos
     double getMaxHealth();
     double getAttackDamage();
     double getMovementSpeed();
     // ... (mais atributos)
-    
+
     // Sub-raças
     boolean hasSubrace();
     String[] getSubraceIds();
     void onSubraceChosen(ServerPlayer player, String subraceId);
-    
+
     // Habilidades
     boolean canSuperJump();
     void executeSuperJump(ServerPlayer player);
     boolean canUseAbility();
     void executeAbility(ServerPlayer player);
-    
+    boolean canMistyStep();
+    void executeMistyStep(ServerPlayer player);
+
     // Eventos
     void onPlayerTick(ServerPlayer player);
     void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event);
@@ -818,7 +831,7 @@ public interface Race {
 
 ---
 
-**Última atualização:** 20/09/2026  
+**Última atualização:** 24/09/2026  
 **Versão do mod:** 1.0.0  
 **Minecraft:** 1.21.1  
 **NeoForge:** 21.1.x

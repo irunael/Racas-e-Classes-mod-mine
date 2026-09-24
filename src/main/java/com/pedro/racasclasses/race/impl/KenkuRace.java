@@ -37,6 +37,9 @@ public class KenkuRace implements Race {
     @Override
     public boolean hasNightVision() { return true; }
 
+    @Override
+    public double getScale() { return 0.85; }
+
     // ===== Invisibilidade ao agachar (sem cooldown) =====
 
     @Override
