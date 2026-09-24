@@ -31,6 +31,9 @@ public class HobgoblinRace implements Race {
     public double getMaxHealth() { return 22.0; }
 
     @Override
+    public double getArmor() { return 1.5; }
+
+    @Override
     public double getAttackDamage() { return 1.1; }
 
     @Override

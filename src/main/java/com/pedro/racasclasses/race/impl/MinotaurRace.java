@@ -11,6 +11,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -114,10 +116,20 @@ public class MinotaurRace implements Race {
 
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
+        DamageSource source = event.getSource();
+
+        // Fraqueza: +30% dano perfurante (primeiro, substitui a resistência)
+        boolean isPiercing =
+                source.is(DamageTypes.ARROW)
+                        || source.is(DamageTypes.TRIDENT)
+                        || source.is(DamageTypes.THROWN);
+
+        if (isPiercing) {
+            event.setAmount(event.getAmount() * 1.3f);
+            return;
+        }
+
         // Resistência geral (-15%)
         event.setAmount(event.getAmount() * 0.85f);
-
-        // Fraqueza: +30% dano perfurante
-        RacialWeakness.applyPiercing(event, 1.3f);
     }
 }

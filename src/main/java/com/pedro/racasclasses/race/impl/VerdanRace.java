@@ -28,7 +28,7 @@ public class VerdanRace implements Race {
     @Override
     public double getMaxHealth() { return 22.0; }
 
-    // ===== Telepathic Insight: -20% dano mágico =====
+    // ===== Resistência mágica (-20%) + Fraqueza perfurante (+30%) =====
 
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
@@ -41,10 +41,8 @@ public class VerdanRace implements Race {
             event.setAmount(event.getAmount() * 0.8f);
         }
 
-        // Fraqueza: +30% dano de magia (override da resistência)
-        // Isso cria uma interação onde a fraqueza aumenta o dano, mas a resistência reduz
-        // O resultado líquido é: dano * 0.8 * 1.3 = dano * 1.04 (4% de aumento)
-        RacialWeakness.applyMagic(event, 1.3f);
+        // Fraqueza: +30% dano perfurante (flecha, tridente, thrown)
+        RacialWeakness.applyPiercing(event, 1.3f);
 
         // Black Blood Healing: ao tomar dano, cura 1 ❤️
         long currentTick = player.serverLevel().getServer().getTickCount();

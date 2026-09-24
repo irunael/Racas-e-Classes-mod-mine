@@ -71,7 +71,7 @@ public class TieflingRace implements Race {
         }
     }
 
-    // ===== Resistência a dano =====
+    // ===== Resistência a dano + fraquezas =====
 
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
@@ -88,9 +88,13 @@ public class TieflingRace implements Race {
 
         if (isFire) {
             if (subrace.equals("asmodeus")) {
-                // Asmodeus: imunidade total a fogo/lava
+                // Asmodeus: imunidade total a fogo
                 event.setAmount(0f);
                 RacasClasses.LOGGER.info("[TIEFLING-ASMODEUS] Imune a fogo!");
+            } else if (subrace.equals("levistus")) {
+                // Levistus: +50% dano de fogo (fraqueza)
+                event.setAmount(event.getAmount() * 1.5f);
+                RacasClasses.LOGGER.info("[TIEFLING-LEVISTUS] Fraqueza a fogo!");
             } else {
                 // Base: 75% de redução
                 event.setAmount(event.getAmount() * (1.0f - HELLISH_RESISTANCE));
@@ -98,7 +102,7 @@ public class TieflingRace implements Race {
             return;
         }
 
-        // --- ZARIEL: 50% de redução a dano físico (armas corpo a corpo) ---
+        // --- ZARIEL: 50% de redução a dano físico + 50% fraqueza mágica ---
         if (subrace.equals("zariel")) {
             boolean isPhysical =
                     source.is(DamageTypes.PLAYER_ATTACK)
@@ -106,20 +110,42 @@ public class TieflingRace implements Race {
 
             if (isPhysical) {
                 event.setAmount(event.getAmount() * (1.0f - ZARIEL_PHYSICAL_RESISTANCE));
+                return;
+            }
+
+            // Zariel: +50% dano mágico (substitui os 30% base)
+            boolean isMagic = source.is(DamageTypes.MAGIC)
+                    || source.is(DamageTypes.INDIRECT_MAGIC)
+                    || source.is(DamageTypes.WITHER)
+                    || source.is(DamageTypes.DRAGON_BREATH)
+                    || source.getMsgId().equals("magic");
+
+            if (isMagic) {
+                event.setAmount(event.getAmount() * 1.5f);
+                RacasClasses.LOGGER.info("[TIEFLING-ZARIEL] Fraqueza mágica (+50%)!");
+                return;
             }
         }
 
-        // Fraqueza: dano sagrado mapeado pra MAGIC (+30%)
-        RacialWeakness.applyMagic(event, 1.3f);
+        // --- ASMODEUS: +50% dano de gelo ---
+        if (subrace.equals("asmodeus") && source.is(DamageTypes.FREEZE)) {
+            event.setAmount(event.getAmount() * 1.5f);
+            RacasClasses.LOGGER.info("[TIEFLING-ASMODEUS] Fraqueza a gelo!");
+            return;
+        }
+
+        // --- Base: +30% dano sagrado (MAGIC) ---
+        // (NÃO aplica pro Zariel, que já tem +50%)
+        if (!subrace.equals("zariel")) {
+            RacialWeakness.applyMagic(event, 1.3f);
+        }
     }
 
     // ===== Ataque mão vazia (efeito na sub-raça) =====
 
     @Override
     public void onAttackEntity(ServerPlayer player, LivingIncomingDamageEvent event) {
-        // Só mão vazia
         if (!player.getMainHandItem().isEmpty()) return;
-
         if (!(event.getEntity() instanceof LivingEntity target)) return;
 
         PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
@@ -127,17 +153,17 @@ public class TieflingRace implements Race {
 
         switch (subrace) {
             case "asmodeus" -> {
-                target.setRemainingFireTicks(40); // 2s
+                target.setRemainingFireTicks(40);
                 RacasClasses.LOGGER.info("[TIEFLING] Asmodeus aplicou fogo!");
             }
             case "levistus" -> {
                 target.addEffect(new MobEffectInstance(
-                        MobEffects.MOVEMENT_SLOWDOWN, 60, 0, false, false, false)); // 3s
+                        MobEffects.MOVEMENT_SLOWDOWN, 60, 0, false, false, false));
                 RacasClasses.LOGGER.info("[TIEFLING] Levistus aplicou slowness!");
             }
             case "zariel" -> {
                 target.addEffect(new MobEffectInstance(
-                        MobEffects.WEAKNESS, 60, 0, false, false, false)); // 3s
+                        MobEffects.WEAKNESS, 60, 0, false, false, false));
                 RacasClasses.LOGGER.info("[TIEFLING] Zariel aplicou weakness!");
             }
         }

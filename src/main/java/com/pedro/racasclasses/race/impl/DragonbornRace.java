@@ -77,6 +77,20 @@ public class DragonbornRace implements Race {
         };
     }
 
+    // ===== Baforada (tecla H) =====
+
+    @Override
+    public boolean canUseAbility() {
+        return true;
+    }
+
+    @Override
+    public void executeAbility(ServerPlayer player) {
+        // Chama o sistema de baforada existente
+        com.pedro.racasclasses.event.BreathWeapon.tryUseBreath(player);
+    }
+
+
     // ===== Resistência elemental =====
 
     @Override

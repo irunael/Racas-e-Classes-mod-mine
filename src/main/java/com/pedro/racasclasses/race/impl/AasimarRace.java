@@ -63,7 +63,7 @@ public class AasimarRace implements Race {
         // saiu pra essa fraqueza ser sentida; Wither continua reduzido.
         if (source.is(DamageTypes.MAGIC) || source.is(DamageTypes.INDIRECT_MAGIC)
                 || source.is(DamageTypes.DRAGON_BREATH)) {
-            RacialWeakness.scale(event, 1.3f);
+            RacialWeakness.scale(event, 1.2f);
             return;
         }
 

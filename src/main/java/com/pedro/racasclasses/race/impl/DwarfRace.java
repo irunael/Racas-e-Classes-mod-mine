@@ -2,9 +2,10 @@ package com.pedro.racasclasses.race.impl;
 
 import com.pedro.racasclasses.RacasClasses;
 import com.pedro.racasclasses.race.Race;
-import com.pedro.racasclasses.race.RacialWeakness;
 
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -22,8 +23,7 @@ public class DwarfRace implements Race {
     @Override
     public String getDisplayName() { return "Anão"; }
 
-    // PHB: +2 CON. Anão da Colina (+1 WIS) não é sub-raça jogável neste mod,
-    // então só o ASI base entra. Se hill for adicionado, somar em onSubraceChosen.
+    // PHB: +2 CON
     @Override public int getRacialConstitution() { return 2; }
     @Override public int getFreeAttributePoints() { return 0; }
 
@@ -48,12 +48,26 @@ public class DwarfRace implements Race {
     @Override
     public double getSwimSpeedBonus() { return 0.0; }
 
-    // Anão não consegue nadar - desabilita nado quando na água
+    // ===== Anão não sabe nadar =====
+
     @Override
     public void onPlayerTick(ServerPlayer player) {
+        if (player.tickCount % 2 != 0) return;
+
         if (player.isInWater() || player.isUnderWater()) {
-            // Desabilita nado definindo velocidade de nado para 0
+            // Bloqueia sprint (impede o nado)
+            player.setSprinting(false);
+
+            // Bloqueia swimming (caso o cliente tente ativar)
             player.setSwimming(false);
+
+            // Aplica Slowness IV
+            player.addEffect(new MobEffectInstance(
+                    MobEffects.MOVEMENT_SLOWDOWN,
+                    20,
+                    3,
+                    false, false, false
+            ));
         }
     }
 
@@ -67,13 +81,8 @@ public class DwarfRace implements Race {
 
         if (player.getRandom().nextFloat() >= SMELT_CHANCE) return;
 
-        // Cancela o drop normal
         event.setCanceled(true);
-
-        // Quebra o bloco sem dropar o normal
         player.level().destroyBlock(event.getPos(), false, player);
-
-        // Dropa o item processado
         Block.popResource(player.level(), event.getPos(), new ItemStack(smelted, 1));
 
         RacasClasses.LOGGER.info("[DWARF] Minério esquentado: {} em {}",

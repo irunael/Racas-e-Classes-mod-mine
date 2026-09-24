@@ -131,9 +131,10 @@ public class RaceEventHandler {
         AttributeInstance armor = player.getAttribute(Attributes.ARMOR);
         if (armor != null) {
             removeModifier(armor, ID_ARMOR);
-            if (race.getArmor() != 0) {
+            double armorBonus = race.getArmor() + race.getSubraceArmorBonus(player);
+            if (armorBonus != 0) {
                 armor.addPermanentModifier(new AttributeModifier(
-                        ID_ARMOR, race.getArmor(), AttributeModifier.Operation.ADD_VALUE));
+                        ID_ARMOR, armorBonus, AttributeModifier.Operation.ADD_VALUE));
             }
         }
 

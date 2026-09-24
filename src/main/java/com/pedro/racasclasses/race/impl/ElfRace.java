@@ -70,6 +70,20 @@ public class ElfRace implements Race {
         };
     }
 
+    // ===== Armadura +1.5 (Drow) =====
+
+    @Override
+    public double getArmor() {
+        return 0.0; // base
+    }
+
+    @Override
+    public double getSubraceArmorBonus(ServerPlayer player) {
+        PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
+        if (data.getElfSubrace().equals("drow")) return 1.5;
+        return 0.0;
+    }
+
     // ===== Bônus de arco (+25%) =====
 
     @Override
@@ -79,7 +93,7 @@ public class ElfRace implements Race {
         event.setAmount(event.getAmount() * 1.25f);
     }
 
-    // Wood: +50% fogo. Drow: +50% de qualquer dano no sol (Weakness/Darkness já no tick).
+    // Wood: +50% fogo. Drow: +50% de qualquer dano no sol.
     @Override
     public void onPlayerHurt(ServerPlayer player, LivingIncomingDamageEvent event) {
         PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
@@ -169,10 +183,6 @@ public class ElfRace implements Race {
         if (inSun) {
             player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 40, 0, false, false, false));
             player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 200, 0, false, false, false));
-        }
-
-        if (isDark && player.isShiftKeyDown()) {
-            player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 40, 0, false, false, false));
         }
     }
 

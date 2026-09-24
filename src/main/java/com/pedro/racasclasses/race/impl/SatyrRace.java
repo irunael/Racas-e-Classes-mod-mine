@@ -3,7 +3,6 @@ package com.pedro.racasclasses.race.impl;
 import com.pedro.racasclasses.race.Race;
 import com.pedro.racasclasses.race.RacialWeakness;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,10 +12,6 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.JukeboxBlock;
-import net.minecraft.world.level.block.entity.JukeboxBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
@@ -33,8 +28,8 @@ public class SatyrRace implements Race {
 
     // ===== Instrumento Mágico (H) =====
     private static final Map<UUID, Long> ABILITY_COOLDOWNS = new HashMap<>();
-    private static final int ABILITY_COOLDOWN_TICKS = 900; // 45s
-    private static final int ABILITY_DURATION_TICKS = 200; // 10s
+    private static final int ABILITY_COOLDOWN_TICKS = 1200; // 60s
+    private static final int ABILITY_DURATION_TICKS = 200;  // 10s
     private static final double ABILITY_RADIUS = 6.0;
 
     @Override
@@ -47,48 +42,10 @@ public class SatyrRace implements Race {
     public double getMaxHealth() { return 20.0; }
 
     @Override
-    public double getMovementSpeed() { return 0.11; }
+    public double getMovementSpeed() { return 0.12; }
 
     @Override
     public double getScale() { return 0.85; }
-
-    // ===== Tick: Speed I permanente + Regen perto de jukebox =====
-
-    @Override
-    public void onPlayerTick(ServerPlayer player) {
-        if (player.tickCount % 20 != 0) return;
-
-        // Speed I permanente
-        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 40, 0, false, false, false));
-
-        // Regeneration I perto de jukebox tocando
-        if (hasPlayingJukeboxNearby(player)) {
-            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 40, 0, false, false, false));
-        }
-    }
-
-    private boolean hasPlayingJukeboxNearby(ServerPlayer player) {
-        ServerLevel level = player.serverLevel();
-        BlockPos center = player.blockPosition();
-
-        for (int x = -8; x <= 8; x++) {
-            for (int y = -4; y <= 4; y++) {
-                for (int z = -8; z <= 8; z++) {
-                    BlockPos pos = center.offset(x, y, z);
-                    BlockState state = level.getBlockState(pos);
-
-                    if (state.is(Blocks.JUKEBOX)) {
-                        if (level.getBlockEntity(pos) instanceof JukeboxBlockEntity jukebox) {
-                            if (!jukebox.getTheItem().isEmpty()) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
 
     // ===== Resistência mágica (-30%) + Fraqueza ferro =====
 

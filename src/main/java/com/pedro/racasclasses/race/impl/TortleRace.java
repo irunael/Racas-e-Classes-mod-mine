@@ -38,6 +38,9 @@ public class TortleRace implements Race {
     @Override
     public double getScale() { return 1.10; }
 
+    @Override
+    public double getSwimSpeedBonus() { return 0.67; }
+
     // ===== 60% de redução de dano (armadura natural) =====
     // Não uso o atributo ARMOR (que é 0-20) porque 60% é muita coisa.
     // Uso -60% de dano recebido direto no onPlayerHurt.
@@ -69,7 +72,7 @@ public class TortleRace implements Race {
         }
 
         player.addEffect(new MobEffectInstance(
-                MobEffects.DAMAGE_RESISTANCE, ABILITY_DURATION_TICKS, 3, false, false, true));
+                MobEffects.DAMAGE_RESISTANCE, ABILITY_DURATION_TICKS, 2, false, false, true));
 
         ABILITY_COOLDOWNS.put(player.getUUID(), currentTick + ABILITY_COOLDOWN_TICKS);
         player.sendSystemMessage(Component.literal("§aShell Defense ativado!"));

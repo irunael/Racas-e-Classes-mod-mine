@@ -6,6 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -19,8 +20,8 @@ import java.util.UUID;
 public class LeoninRace implements Race {
 
     private static final Map<UUID, Long> ABILITY_COOLDOWNS = new HashMap<>();
-    private static final int ABILITY_COOLDOWN_TICKS = 600;
-    private static final int ABILITY_DURATION_TICKS = 200;
+    private static final int ABILITY_COOLDOWN_TICKS = 900;  // 45s
+    private static final int ABILITY_DURATION_TICKS = 200;  // 10s
 
     @Override
     public String getId() { return "leonin"; }
@@ -43,11 +44,15 @@ public class LeoninRace implements Race {
     @Override
     public boolean hasNightVision() { return true; }
 
+    // ===== +20% dano melee em mobs =====
+
     @Override
     public void onAttackEntity(ServerPlayer player, LivingIncomingDamageEvent event) {
-        if (!player.getMainHandItem().isEmpty()) return;
-        event.setAmount(event.getAmount() + 3.0f);
+        if (!(event.getEntity() instanceof Mob)) return;
+        event.setAmount(event.getAmount() * 1.20f);
     }
+
+    // ===== Daunting Roar (H) =====
 
     @Override
     public boolean canUseAbility() { return true; }
@@ -70,19 +75,22 @@ public class LeoninRace implements Race {
         player.sendSystemMessage(Component.literal("§aDaunting Roar ativado!"));
     }
 
+    // ===== Fome 50% mais rápida =====
+
     @Override
     public void onPlayerTick(ServerPlayer player) {
         if (player.tickCount % 20 != 0) return;
 
         FoodData food = player.getFoodData();
-        food.addExhaustion(0.3f);
+        food.addExhaustion(0.5f);
     }
+
+    // ===== Carnívoro (só come carne) =====
 
     public void onItemUse(ServerPlayer player, PlayerInteractEvent.RightClickItem event) {
         ItemStack item = event.getItemStack();
         if (item.isEmpty()) return;
 
-        // Bloqueia vegetais
         if (isVegetable(item)) {
             event.setCanceled(true);
             player.sendSystemMessage(Component.literal("§cLeonin só come carne!"));

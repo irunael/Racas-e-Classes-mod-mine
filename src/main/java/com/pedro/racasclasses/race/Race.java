@@ -108,6 +108,10 @@ public interface Race {
     default void onCriticalHit(ServerPlayer player, CriticalHitEvent event) {}
     default void onMobTarget(ServerPlayer player, LivingChangeTargetEvent event) {}
     default void onAttackEntity(ServerPlayer player, LivingIncomingDamageEvent event) {}
+    default double getSubraceArmorBonus(ServerPlayer player) { return 0.0; }
+
+    /** Chamado quando o player ganha XP de minério (bloco quebrado) */
+    default int modifyBlockXp(ServerPlayer player, int originalXp) { return originalXp; }
     
     // ===== Interação com items (Vampire - bloquear comida) =====
     

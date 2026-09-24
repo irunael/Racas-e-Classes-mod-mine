@@ -24,9 +24,6 @@ public class LizardfolkRace implements Race {
     public double getMaxHealth() { return 22.0; }
 
     @Override
-    public double getArmor() { return 4.0; }
-
-    @Override
     public double getSwimSpeedBonus() { return 0.50; }
 
     // ===== Mordida: +3 dano desarmado =====

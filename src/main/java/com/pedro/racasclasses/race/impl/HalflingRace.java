@@ -6,6 +6,7 @@ import com.pedro.racasclasses.capability.PlayerRaceData;
 import com.pedro.racasclasses.race.Race;
 import com.pedro.racasclasses.race.RacialWeakness;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -15,11 +16,19 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class HalflingRace implements Race {
 
     private static final float LUCKY_CHANCE = 0.10f;
     private static final float BACKSTAB_MULTIPLIER = 1.20f;
-    private static final float STOUT_RESISTANCE = 0.30f;
+
+    // Cooldown da invisibilidade do Lightfoot (H)
+    private static final Map<UUID, Long> ABILITY_COOLDOWNS = new HashMap<>();
+    private static final int ABILITY_COOLDOWN_TICKS = 600; // 30s
+    private static final int ABILITY_DURATION_TICKS = 100; // 5s
 
     @Override
     public String getId() { return "halfling"; }
@@ -75,7 +84,7 @@ public class HalflingRace implements Race {
         return 0.0;
     }
 
-    // ===== Brave + Lightfoot invisibilidade =====
+    // ===== Brave + fome do Lightfoot =====
 
     @Override
     public void onPlayerTick(ServerPlayer player) {
@@ -85,13 +94,48 @@ public class HalflingRace implements Race {
         player.removeEffect(MobEffects.WEAKNESS);
         player.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
 
+        // Lightfoot: fome 15% mais rápida
         PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
         if (data.getHalflingSubrace().equals("lightfoot")) {
-            RacialWeakness.fasterHunger(player, 0.25f);
-            if (player.isShiftKeyDown()) {
-                player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 40, 0, false, false, false));
-            }
+            RacialWeakness.fasterHunger(player, 0.15f);
         }
+    }
+
+    // ===== Habilidade H: Invisibilidade (Lightfoot) =====
+
+    @Override
+    public boolean canUseAbility() {
+        return true;
+    }
+
+    @Override
+    public void executeAbility(ServerPlayer player) {
+        PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
+        if (!data.getHalflingSubrace().equals("lightfoot")) {
+            player.sendSystemMessage(Component.literal("§cApenas o Halfling Pé Leve tem essa habilidade."));
+            return;
+        }
+
+        long currentTick = player.serverLevel().getServer().getTickCount();
+        Long readyAt = ABILITY_COOLDOWNS.get(player.getUUID());
+
+        if (readyAt != null && currentTick < readyAt) {
+            double seconds = (readyAt - currentTick) / 20.0;
+            player.sendSystemMessage(Component.literal(
+                    String.format("§cInvisibilidade em recarga: §f%.1fs", seconds)));
+            return;
+        }
+
+        // Aplica invisibilidade por 5s
+        player.addEffect(new MobEffectInstance(
+                MobEffects.INVISIBILITY,
+                ABILITY_DURATION_TICKS,
+                0,
+                false, false, false
+        ));
+
+        player.sendSystemMessage(Component.literal("§aInvisibilidade ativada!"));
+        ABILITY_COOLDOWNS.put(player.getUUID(), currentTick + ABILITY_COOLDOWN_TICKS);
     }
 
     // ===== Lucky: 10% chance de drop extra =====
@@ -105,7 +149,7 @@ public class HalflingRace implements Race {
         var state = event.getState();
         var blockEntity = level.getBlockEntity(pos);
 
-        // Pega os drops corretos (Raw Iron, não Iron Ore)
+        // Pega os drops corretos
         var drops = Block.getDrops(state, level, pos, blockEntity);
 
         if (drops.isEmpty()) return;
@@ -143,12 +187,6 @@ public class HalflingRace implements Race {
         PlayerRaceData data = player.getData(ModAttachments.PLAYER_RACE);
         var source = event.getSource();
 
-        RacasClasses.LOGGER.info("[HALFLING-HURT] Subrace={}, damageType={}, amount={}, hp antes={}",
-                data.getHalflingSubrace(),
-                source.getMsgId(),
-                event.getAmount(),
-                player.getHealth());
-
         if (!data.getHalflingSubrace().equals("stout")) return;
 
         boolean isPhysical =
@@ -157,16 +195,11 @@ public class HalflingRace implements Race {
                         || source.is(net.minecraft.world.damagesource.DamageTypes.ARROW)
                         || source.is(net.minecraft.world.damagesource.DamageTypes.TRIDENT);
 
-        RacasClasses.LOGGER.info("[HALFLING-STOUT] isPhysical={}, amount antes={}",
-                isPhysical, event.getAmount());
-
         if (isPhysical) {
-            float novoDano = event.getAmount() * 0.8f;
-            event.setAmount(novoDano);
-            RacasClasses.LOGGER.info("[HALFLING-STOUT] amount depois={}", novoDano);
+            event.setAmount(event.getAmount() * 0.8f); // 20% redução
         }
 
-        // Stout: +25% dano de veneno (MAGIC com Poison ativo)
+        // Stout: +25% dano de veneno
         RacialWeakness.applyPoisonMagic(player, event, 1.25f);
     }
 }
